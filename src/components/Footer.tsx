@@ -1,6 +1,10 @@
+"use client";
+
 import { FaGithub, FaLinkedin, FaYoutube, FaInstagram, FaWhatsapp } from "react-icons/fa";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function Footer() {
+  const { t } = useLanguage();
   const currentYear = new Date().getFullYear();
 
   return (
@@ -12,7 +16,7 @@ export default function Footer() {
             arango<span className="text-teal-400">.dev</span>
           </p>
           <p className="text-neutral-500 text-sm mt-1">
-            © {currentYear} Juan José Arango. Engineered with precision.
+            © {currentYear} Juan José Arango. {t("Ingeniería con precisión.", "Engineered with precision.")}
           </p>
         </div>
 
@@ -29,7 +33,7 @@ export default function Footer() {
           <a href="https://instagram.com/juan_arango_dev" target="_blank" rel="noopener noreferrer" className="p-2 text-neutral-400 hover:text-[#e1306c] hover:bg-neutral-800 rounded-full transition-all">
             <FaInstagram className="w-5 h-5" />
           </a>
-          <a href="https://wa.me/573114005275" target="_blank" rel="noopener noreferrer" className="p-2 text-neutral-400 hover:text-[#25D366] hover:bg-neutral-800 rounded-full transition-all">
+          <a href="https://wa.me/573006030655" target="_blank" rel="noopener noreferrer" className="p-2 text-neutral-400 hover:text-[#25D366] hover:bg-neutral-800 rounded-full transition-all">
             <FaWhatsapp className="w-5 h-5" />
           </a>
         </div>
