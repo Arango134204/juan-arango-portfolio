@@ -1,3 +1,46 @@
+## Juan José Arango | Creative Software Engineer Portfolio
+This is the professional portfolio of Juan José Arango, a modern web application built with Next.js and Framer Motion. It is designed to showcase a versatile career path spanning web development, mobile applications, IoT systems, and AI-driven automation.
+
+## 🚀 Key Features
+Interactive 3D Experience: Custom ID card component featuring 3D tilt effects and physical-like animations powered by framer-motion.
+
+Dynamic Tech Stack: A comprehensive grid showcasing 30+ tools across web, mobile, hardware, cloud, and development environments.
+
+Interactive Web Quoter: An integrated logical tool for instant project cost estimation with real-time calculations.
+
+Global Bilingual System: Architectural implementation using LanguageContext to toggle the entire portfolio instantly between English and Spanish.
+
+Modern UI: Clean, bento-grid style design optimized for all devices using Tailwind CSS.
+
+## 🛠 Featured Tech Stack
+Frameworks: Next.js, React, Angular.
+
+Styling: Tailwind CSS.
+
+Animations: Framer Motion (physics, drag gestures, and transitions).
+
+Backend & Cloud: Firebase, Node.js, Python, PHP/Laravel, Google Cloud.
+
+Hardware & IoT: Arduino, ESP32, Telemetry.
+
+Development Tools: Docker, JetBrains, Figma, Webflow, XAMPP.
+
+## 🏗 Key Projects
+MegaFlujo AI: Real-time crowdsourcing platform for urban transit optimization.
+
+BarberSaaS: Multi-tenant management platform for barbershops.
+
+IoT Biomedical Simulator: 3D brain model for simulated surgical navigation using ESP32/Arduino.
+
+LabFast: Social and technological innovation for last-mile health logistics.
+
+Rápido y Furiosos: Logistics marketplace with automated WhatsApp notifications.
+
+GA3 Energy: Corporate high-conversion platform for the renewable energy sector.
+
+## 🚀 Deployment
+This project is automatically deployed on the Vercel Platform. Every push to the main branch triggers a new build and production deployment.
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
