@@ -1,79 +1,90 @@
-## Juan José Arango | Creative Software Engineer Portfolio
-This is the professional portfolio of Juan José Arango, a modern web application built with Next.js and Framer Motion. It is designed to showcase a versatile career path spanning web development, mobile applications, IoT systems, and AI-driven automation.
+# Juan José Arango | Creative Software Engineer Portfolio
 
-## 🚀 Key Features
-Interactive 3D Experience: Custom ID card component featuring 3D tilt effects and physical-like animations powered by framer-motion.
+Welcome to the repository of my professional portfolio. This project is a modern, interactive web application built with **Next.js**, **Tailwind CSS**, and **Framer Motion**. It is engineered to showcase a versatile career path spanning full-stack web development, mobile applications, IoT systems, and software auditing.
 
-Dynamic Tech Stack: A comprehensive grid showcasing 30+ tools across web, mobile, hardware, cloud, and development environments.
+🌐 **Live Demo:** [arango.dev](https://juan-arango-portfolio.vercel.app/)
 
-Interactive Web Quoter: An integrated logical tool for instant project cost estimation with real-time calculations.
+---
 
-Global Bilingual System: Architectural implementation using LanguageContext to toggle the entire portfolio instantly between English and Spanish.
+## ✨ Key Features
 
-Modern UI: Clean, bento-grid style design optimized for all devices using Tailwind CSS.
+- **Global Bilingual Architecture:** Seamless English/Spanish toggle implemented via a custom React Context (`LanguageContext`), enabling instant translation across the entire application without page reloads.
+- **Interactive 3D Physics:** A custom ID Card component featuring 3D tilt effects, spring physics, and drag gestures powered by `framer-motion`.
+- **Integrated Web Quoter:** A state-managed, interactive project estimator with dynamic pricing calculations, multi-step validation, and automated WhatsApp message generation.
+- **Modern UI/UX:** Clean, responsive *bento-grid* design pattern, optimized for performance and mobile accessibility using Tailwind CSS.
 
-## 🛠 Featured Tech Stack
-Frameworks: Next.js, React, Angular.
+---
 
-Styling: Tailwind CSS.
+## 🛠 Technical Stack
 
-Animations: Framer Motion (physics, drag gestures, and transitions).
+### Frontend & UI
+- Next.js (App Router)
+- React 18
+- Tailwind CSS
+- Framer Motion
+- Lucide React & React Icons
 
-Backend & Cloud: Firebase, Node.js, Python, PHP/Laravel, Google Cloud.
+### Backend, Cloud & Database
+- Node.js & Express
+- Python (Flask)
+- Firebase & Google Cloud
+- MongoDB & PostgreSQL
+- Prisma ORM
 
-Hardware & IoT: Arduino, ESP32, Telemetry.
+### Hardware & Mobile
+- Android (Kotlin) & Jetpack Compose
+- C++, Arduino, ESP32 (Telemetry & IoT Integrations)
 
-Development Tools: Docker, JetBrains, Figma, Webflow, XAMPP.
+---
 
-## 🏗 Key Projects
-MegaFlujo AI: Real-time crowdsourcing platform for urban transit optimization.
+## 🏗 Featured Projects
 
-BarberSaaS: Multi-tenant management platform for barbershops.
+- **MegaFlujo AI:** Real-time crowdsourcing platform for urban transit optimization using weighted consensus algorithms and Firebase.
+- **BarberSaaS:** Multi-tenant platform built with Angular, Node.js, and Prisma for comprehensive barbershop administration.
+- **IoT Biomedical Simulator:** 3D printed brain model integrating photoresistors, telemetry, and ESP32 boards to emulate precise surgical navigation.
+- **LabFast:** Social and technological innovation proposal focused on optimizing last-mile health logistics.
+- **MongoBites:** Scalable RESTful API and CRUD management system built with Python and Flask.
+- **ISO/IEC 12207:2017 Audit:** Software audit management and deep architecture resolution in task modules for Crater Invoice.
 
-IoT Biomedical Simulator: 3D brain model for simulated surgical navigation using ESP32/Arduino.
+---
 
-LabFast: Social and technological innovation for last-mile health logistics.
+## 🚀 Getting Started (Local Development)
 
-Rápido y Furiosos: Logistics marketplace with automated WhatsApp notifications.
-
-GA3 Energy: Corporate high-conversion platform for the renewable energy sector.
-
-## 🚀 Deployment
-This project is automatically deployed on the Vercel Platform. Every push to the main branch triggers a new build and production deployment.
-
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
-
-## Getting Started
-
-First, run the development server:
-
+1. **Clone the repository:**
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+   git clone https://github.com/Arango134204/juan-arango-portfolio.git
+   cd juan-arango-portfolio
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. **Install dependencies:**
+```bash
+   npm install
+   # or yarn install / pnpm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. **Run the development server:**
+```bash
+   npm run dev
+   # or yarn dev / pnpm dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. **Open the application:** Navigate to [http://localhost:3000](http://localhost:3000) in your browser. The application will auto-update as you edit the files.
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 🌍 Deployment
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+This application is continuously deployed on the **Vercel** platform. Every push to the `main` branch triggers an automated build and deployment process, ensuring the production environment is always up to date.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+For more details, check out the [Next.js Deployment Documentation](https://nextjs.org/docs/app/building-your-application/deploying).
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 📫 Let's Connect
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+I am always open to discussing new projects, freelance opportunities, and software architecture challenges.
+
+- 💼 **LinkedIn:** [Juan José Arango](https://www.linkedin.com/in/juan-josé-arango-54924a36a)
+- 🐙 **GitHub:** [@Arango134204](https://github.com/Arango134204)
+- 📧 **Email:** arangojuanjoseweb@gmail.com
+- 💬 **WhatsApp:** [+57 311 400 5275](https://wa.me/573114005275)
