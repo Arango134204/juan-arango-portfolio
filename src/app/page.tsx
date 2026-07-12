@@ -44,7 +44,7 @@ export default function Home() {
             <Link href="#projects" className="px-8 py-4 rounded-xl bg-white text-black font-semibold hover:bg-neutral-200 transition-colors text-center">
               {t("Ver Proyectos", "View Projects")}
             </Link>
-            <Link href="/cv-software-engineering.pdf" target="_blank" className="px-8 py-4 rounded-xl bg-neutral-900 border border-neutral-800 text-white font-semibold hover:border-neutral-600 transition-all text-center">
+            <Link href="/CV_JuanJoseArango_EN_2026.pdf" target="_blank" className="px-8 py-4 rounded-xl bg-neutral-900 border border-neutral-800 text-white font-semibold hover:border-neutral-600 transition-all text-center">
               {t("Descargar CV", "Download CV")}
             </Link>
           </div>
