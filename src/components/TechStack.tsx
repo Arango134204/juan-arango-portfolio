@@ -8,7 +8,7 @@ import {
   SiFigma, SiWordpress, SiHtml5, SiCss, SiAndroidstudio, SiXcode, 
   SiKotlin, SiPython, SiPhp, SiLaravel, SiDocker, SiGooglecloud, 
   SiArduino, SiPrisma, SiWebflow, SiXampp, SiElementor, SiHubspot, 
-  SiJetbrains, SiOpenai, SiVercel, SiGit
+  SiJetbrains, SiOpenai, SiVercel, SiGit, SiShopify, SiHostinger
 } from "react-icons/si";
 import { ShieldCheck, Zap } from "lucide-react";
 
@@ -45,6 +45,7 @@ export default function TechStack() {
     
     // Deployment, Cloud & Infrastructure (Cluster Media Stack)
     { name: "Vercel", icon: SiVercel, color: "group-hover:text-white" },
+    { name: "Hostinger", icon: SiHostinger, color: "group-hover:text-purple-400" },
     { name: "Git CI/CD", icon: SiGit, color: "group-hover:text-orange-500" },
     { name: "Email DNS (SPF/DKIM)", icon: ShieldCheck, color: "group-hover:text-emerald-400" },
     { name: "GoHighLevel", icon: Zap, color: "group-hover:text-blue-500" },
@@ -52,7 +53,8 @@ export default function TechStack() {
     { name: "Google Cloud", icon: SiGooglecloud, color: "group-hover:text-blue-400" },
     { name: "Docker", icon: SiDocker, color: "group-hover:text-blue-500" },
     
-    // AI, Hardware, Tools & CMS
+    // AI, Hardware, Tools, E-Commerce & CMS
+    { name: "Shopify", icon: SiShopify, color: "group-hover:text-green-500" },
     { name: "OpenAI API", icon: SiOpenai, color: "group-hover:text-white" },
     { name: "Arduino", icon: SiArduino, color: "group-hover:text-teal-500" },
     { name: "JetBrains", icon: SiJetbrains, color: "group-hover:text-white" },
