@@ -8,14 +8,15 @@ import {
   SiFigma, SiWordpress, SiHtml5, SiCss, SiAndroidstudio, SiXcode, 
   SiKotlin, SiPython, SiPhp, SiLaravel, SiDocker, SiGooglecloud, 
   SiArduino, SiPrisma, SiWebflow, SiXampp, SiElementor, SiHubspot, 
-  SiJetbrains, SiOpenai
+  SiJetbrains, SiOpenai, SiVercel, SiGit
 } from "react-icons/si";
+import { ShieldCheck, Zap } from "lucide-react";
 
 export default function TechStack() {
   const { t } = useLanguage();
 
   const technologies = [
-    // Core Web
+    // Core Web & Languages
     { name: "HTML5", icon: SiHtml5, color: "group-hover:text-orange-500" },
     { name: "CSS3", icon: SiCss, color: "group-hover:text-blue-500" },
     { name: "JavaScript", icon: SiJavascript, color: "group-hover:text-yellow-400" },
@@ -42,11 +43,17 @@ export default function TechStack() {
     { name: "Kotlin", icon: SiKotlin, color: "group-hover:text-purple-400" },
     { name: "Xcode", icon: SiXcode, color: "group-hover:text-blue-400" },
     
-    // AI, Cloud, Tools & CMS
-    { name: "OpenAI API", icon: SiOpenai, color: "group-hover:text-white" },
+    // Deployment, Cloud & Infrastructure (Cluster Media Stack)
+    { name: "Vercel", icon: SiVercel, color: "group-hover:text-white" },
+    { name: "Git CI/CD", icon: SiGit, color: "group-hover:text-orange-500" },
+    { name: "Email DNS (SPF/DKIM)", icon: ShieldCheck, color: "group-hover:text-emerald-400" },
+    { name: "GoHighLevel", icon: Zap, color: "group-hover:text-blue-500" },
     { name: "Firebase", icon: SiFirebase, color: "group-hover:text-yellow-500" },
     { name: "Google Cloud", icon: SiGooglecloud, color: "group-hover:text-blue-400" },
     { name: "Docker", icon: SiDocker, color: "group-hover:text-blue-500" },
+    
+    // AI, Hardware, Tools & CMS
+    { name: "OpenAI API", icon: SiOpenai, color: "group-hover:text-white" },
     { name: "Arduino", icon: SiArduino, color: "group-hover:text-teal-500" },
     { name: "JetBrains", icon: SiJetbrains, color: "group-hover:text-white" },
     { name: "HubSpot", icon: SiHubspot, color: "group-hover:text-orange-500" },
@@ -56,7 +63,7 @@ export default function TechStack() {
     { name: "Figma", icon: SiFigma, color: "group-hover:text-pink-400" },
   ];
 
-return (
+  return (
     <section id="stack" className="min-h-screen flex flex-col justify-center max-w-7xl mx-auto px-6 py-24 relative z-10 border-t border-white/5">
       
       <div className="mb-16 text-center md:text-left">
@@ -65,13 +72,13 @@ return (
         </h2>
         <p className="text-neutral-400 max-w-2xl text-lg md:text-xl">
           {t(
-            "Las herramientas, lenguajes y frameworks que uso para construir experiencias digitales escalables y de alto rendimiento en web, móvil y hardware.",
-            "The tools, languages, and frameworks I use to build scalable, high-performance digital experiences across web, mobile, and hardware."
+            "Las herramientas, lenguajes, infraestructuras y automatizaciones que uso para construir experiencias digitales escalables, flujos de trabajo eficientes y de alto rendimiento en web, móvil y hardware.",
+            "The tools, languages, infrastructures, and automations I use to build scalable, high-performance digital experiences and workflows across web, mobile, and hardware."
           )}
         </p>
       </div>
 
-      {/* Cuadrícula de Logos - Ajustada para acomodar los 30 elementos */}
+      {/* Cuadrícula de Logos */}
       <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-10 gap-4 md:gap-6">
         {technologies.map((tech, index) => {
           const Icon = tech.icon;

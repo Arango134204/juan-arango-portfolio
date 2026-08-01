@@ -10,6 +10,39 @@ export default function Projects() {
 
   const projects = [
     {
+      title: "CLUSTERAG - Productivity & Audit Platform",
+      description: t(
+        "Plataforma interna para gestión de flujos de trabajo y auditoría de productividad en producción audiovisual (módulos de Sala de Podcast y Producción). Sincronizada vía Vercel e integrada con infraestructuras operativas en Cluster Media.",
+        "Internal workflow and productivity audit platform for media production (Podcast Room and Production modules). Synchronized via Vercel and integrated with operational infrastructures at Cluster Media."
+      ),
+      tags: ["Next.js", "TypeScript", "Vercel", "Workflow Automation", "Cluster OS"],
+      link: "https://clusterag.vercel.app/",
+      featured: true,
+      status: t("Cluster Media SaaS", "Cluster Media SaaS"),
+    },
+    {
+      title: "Lead-Forge",
+      description: t(
+        "Plataforma enfocada en prospección y automatización de clientes. Incluye estructuración de webhooks para despliegue continuo en Vercel, integración con GoHighLevel y endurecimiento de seguridad DNS (SPF, DKIM, DMARC) para Email Outreach.",
+        "Client prospecting and automation platform. Features Vercel CI/CD webhook orchestration, GoHighLevel integrations, and DNS security hardening (SPF, DKIM, DMARC) for Email Outreach pipelines."
+      ),
+      tags: ["Next.js", "GoHighLevel", "CI/CD", "Vercel", "Email Auth DNS"],
+      link: "https://lead-forge-tau.vercel.app/",
+      featured: true,
+      status: t("Cluster Media SaaS", "Cluster Media SaaS"),
+    },
+    {
+      title: "Valux.hn",
+      description: t(
+        "Plataforma web de alto rendimiento orientada a conversión del ecosistema de clientes de Cluster Media, desarrollada con estándares de código limpio y optimización para despliegue de velocidad en Vercel.",
+        "High-performance, conversion-oriented web platform built within the Cluster Media client ecosystem, engineered with clean code standards and optimized for Vercel speed deployment."
+      ),
+      tags: ["Next.js", "React", "Tailwind CSS", "Vercel"],
+      link: "https://valux-hn.vercel.app/",
+      featured: false,
+      status: t("Cluster Media Client", "Cluster Media Client"),
+    },
+    {
       title: "MegaFlujo AI",
       description: t(
         "Plataforma de crowdsourcing en tiempo real para el sistema Megabús. Utiliza un algoritmo de consenso para optimizar la movilidad urbana.",
@@ -95,8 +128,8 @@ export default function Projects() {
         </h2>
         <p className="text-neutral-400 max-w-2xl text-lg">
           {t(
-            "Una selección de mi trabajo reciente, abarcando desde plataformas SaaS y sitios corporativos hasta integración de hardware IoT y auditoría de software.",
-            "A selection of my recent work, ranging from SaaS platforms and corporate sites to IoT hardware integration and software auditing."
+            "Una selección de mi trabajo reciente, abarcando desde plataformas SaaS institucionales para agencias hasta sitios corporativos, integración de hardware IoT y auditorías de software.",
+            "A selection of my recent work, ranging from enterprise agency SaaS platforms to corporate sites, IoT hardware integration, and software auditing."
           )}
         </p>
       </div>
