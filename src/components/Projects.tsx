@@ -32,6 +32,17 @@ export default function Projects() {
       status: t("Cluster Media SaaS", "Cluster Media SaaS"),
     },
     {
+      title: "LISTAS Bienes Raíces",
+      description: t(
+        "Plataforma inmobiliaria en producción para un cliente real (Pereira / Eje Cafetero): catálogo de compra y arriendo con filtros, mapa Leaflet con radio de 300 m, panel de administración, carga de fotos y video en Cloudinary, y contacto directo por WhatsApp.",
+        "Production real-estate platform for a live client (Pereira / Coffee Region): buy-and-rent catalog with filters, Leaflet map with a 300 m radius, admin panel, Cloudinary photo/video uploads, and direct WhatsApp contact."
+      ),
+      tags: ["Angular", "Node.js", "MySQL", "Cloudinary", "Leaflet", "WhatsApp"],
+      link: "https://listasbienesraices.com/",
+      featured: true,
+      status: t("Cliente real · En producción", "Live Client · In Production"),
+    },
+    {
       title: "Valux.hn",
       description: t(
         "Plataforma web de alto rendimiento orientada a conversión del ecosistema de clientes de Cluster Media, desarrollada con estándares de código limpio y optimización para despliegue de velocidad en Vercel.",
