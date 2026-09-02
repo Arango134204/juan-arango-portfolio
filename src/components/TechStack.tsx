@@ -8,7 +8,9 @@ import {
   SiFigma, SiWordpress, SiHtml5, SiCss, SiAndroidstudio, SiXcode, 
   SiKotlin, SiPython, SiPhp, SiLaravel, SiDocker, SiGooglecloud, 
   SiArduino, SiPrisma, SiWebflow, SiXampp, SiElementor, SiHubspot, 
-  SiJetbrains, SiOpenai, SiVercel, SiGit, SiShopify, SiHostinger
+  SiJetbrains, SiOpenai, SiVercel, SiGit, SiShopify, SiHostinger,
+  SiCloudinary, SiMysql, SiLeaflet, SiExpress, SiResend, SiZod,
+  SiFramer, SiShadcnui
 } from "react-icons/si";
 import { ShieldCheck, Zap } from "lucide-react";
 
@@ -27,9 +29,12 @@ export default function TechStack() {
     { name: "Next.js", icon: SiNextdotjs, color: "group-hover:text-white" },
     { name: "Angular", icon: SiAngular, color: "group-hover:text-red-500" },
     { name: "Tailwind CSS", icon: SiTailwindcss, color: "group-hover:text-teal-400" },
+    { name: "Framer Motion", icon: SiFramer, color: "group-hover:text-pink-400" },
+    { name: "shadcn/ui", icon: SiShadcnui, color: "group-hover:text-white" },
     
     // Backend & Database
     { name: "Node.js", icon: SiNodedotjs, color: "group-hover:text-green-500" },
+    { name: "Express", icon: SiExpress, color: "group-hover:text-white" },
     { name: "Python", icon: SiPython, color: "group-hover:text-blue-300" },
     { name: "PHP", icon: SiPhp, color: "group-hover:text-indigo-400" },
     { name: "Laravel", icon: SiLaravel, color: "group-hover:text-red-500" },
@@ -37,13 +42,14 @@ export default function TechStack() {
     { name: "Prisma", icon: SiPrisma, color: "group-hover:text-white" },
     { name: "MongoDB", icon: SiMongodb, color: "group-hover:text-green-400" },
     { name: "PostgreSQL", icon: SiPostgresql, color: "group-hover:text-blue-300" },
+    { name: "MySQL", icon: SiMysql, color: "group-hover:text-blue-400" },
     
     // Mobile Development
     { name: "Android Studio", icon: SiAndroidstudio, color: "group-hover:text-green-400" },
     { name: "Kotlin", icon: SiKotlin, color: "group-hover:text-purple-400" },
     { name: "Xcode", icon: SiXcode, color: "group-hover:text-blue-400" },
     
-    // Deployment, Cloud & Infrastructure (Cluster Media Stack)
+    // Deployment, Cloud & Infrastructure
     { name: "Vercel", icon: SiVercel, color: "group-hover:text-white" },
     { name: "Hostinger", icon: SiHostinger, color: "group-hover:text-purple-400" },
     { name: "Git CI/CD", icon: SiGit, color: "group-hover:text-orange-500" },
@@ -51,9 +57,13 @@ export default function TechStack() {
     { name: "GoHighLevel", icon: Zap, color: "group-hover:text-blue-500" },
     { name: "Firebase", icon: SiFirebase, color: "group-hover:text-yellow-500" },
     { name: "Google Cloud", icon: SiGooglecloud, color: "group-hover:text-blue-400" },
+    { name: "Cloudinary", icon: SiCloudinary, color: "group-hover:text-blue-300" },
     { name: "Docker", icon: SiDocker, color: "group-hover:text-blue-500" },
     
-    // AI, Hardware, Tools, E-Commerce & CMS
+    // Maps, validation, email & tools
+    { name: "Leaflet", icon: SiLeaflet, color: "group-hover:text-green-400" },
+    { name: "Zod", icon: SiZod, color: "group-hover:text-blue-400" },
+    { name: "Resend", icon: SiResend, color: "group-hover:text-white" },
     { name: "Shopify", icon: SiShopify, color: "group-hover:text-green-500" },
     { name: "OpenAI API", icon: SiOpenai, color: "group-hover:text-white" },
     { name: "Arduino", icon: SiArduino, color: "group-hover:text-teal-500" },
