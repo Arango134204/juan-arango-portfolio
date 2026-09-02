@@ -1,194 +1,171 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useMemo, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { SiGithub } from "react-icons/si";
 import { useLanguage } from "@/context/LanguageContext";
+import { projects, type ProjectCategory } from "@/data/projects";
+
+type FilterId = "all" | ProjectCategory;
 
 export default function Projects() {
-  const { t } = useLanguage();
+  const { t, lang } = useLanguage();
+  const [filter, setFilter] = useState<FilterId>("websites");
 
-  const projects = [
-    {
-      title: "CLUSTERAG - Productivity & Audit Platform",
-      description: t(
-        "Plataforma interna para gestión de flujos de trabajo y auditoría de productividad en producción audiovisual (módulos de Sala de Podcast y Producción). Sincronizada vía Vercel e integrada con infraestructuras operativas en Cluster Media.",
-        "Internal workflow and productivity audit platform for media production (Podcast Room and Production modules). Synchronized via Vercel and integrated with operational infrastructures at Cluster Media."
-      ),
-      tags: ["Next.js", "TypeScript", "Vercel", "Workflow Automation", "Cluster OS"],
-      link: "https://clusterag.vercel.app/",
-      featured: true,
-      status: t("Cluster Media SaaS", "Cluster Media SaaS"),
-    },
-    {
-      title: "Lead-Forge",
-      description: t(
-        "Plataforma enfocada en prospección y automatización de clientes. Incluye estructuración de webhooks para despliegue continuo en Vercel, integración con GoHighLevel y endurecimiento de seguridad DNS (SPF, DKIM, DMARC) para Email Outreach.",
-        "Client prospecting and automation platform. Features Vercel CI/CD webhook orchestration, GoHighLevel integrations, and DNS security hardening (SPF, DKIM, DMARC) for Email Outreach pipelines."
-      ),
-      tags: ["Next.js", "GoHighLevel", "CI/CD", "Vercel", "Email Auth DNS"],
-      link: "https://lead-forge-tau.vercel.app/",
-      featured: true,
-      status: t("Cluster Media SaaS", "Cluster Media SaaS"),
-    },
-    {
-      title: "LISTAS Bienes Raíces",
-      description: t(
-        "Plataforma inmobiliaria en producción para un cliente real (Pereira / Eje Cafetero): catálogo de compra y arriendo con filtros, mapa Leaflet con radio de 300 m, panel de administración, carga de fotos y video en Cloudinary, y contacto directo por WhatsApp.",
-        "Production real-estate platform for a live client (Pereira / Coffee Region): buy-and-rent catalog with filters, Leaflet map with a 300 m radius, admin panel, Cloudinary photo/video uploads, and direct WhatsApp contact."
-      ),
-      tags: ["Angular", "Node.js", "MySQL", "Cloudinary", "Leaflet", "WhatsApp"],
-      link: "https://listasbienesraices.com/",
-      featured: true,
-      status: t("Cliente real · En producción", "Live Client · In Production"),
-    },
-    {
-      title: "Valux.hn",
-      description: t(
-        "Plataforma web de alto rendimiento orientada a conversión del ecosistema de clientes de Cluster Media, desarrollada con estándares de código limpio y optimización para despliegue de velocidad en Vercel.",
-        "High-performance, conversion-oriented web platform built within the Cluster Media client ecosystem, engineered with clean code standards and optimized for Vercel speed deployment."
-      ),
-      tags: ["Next.js", "React", "Tailwind CSS", "Vercel"],
-      link: "https://valux-hn.vercel.app/",
-      featured: false,
-      status: t("Cluster Media Client", "Cluster Media Client"),
-    },
-    {
-      title: "MegaFlujo AI",
-      description: t(
-        "Plataforma de crowdsourcing en tiempo real para el sistema Megabús. Utiliza un algoritmo de consenso para optimizar la movilidad urbana.",
-        "Real-time crowdsourcing platform for the Megabús transit system. Uses a consensus algorithm to optimize urban mobility."
-      ),
-      tags: ["Firebase", "Arquitectura", "UX/UI", "Clean Code"],
-      link: "#",
-      featured: true,
-      status: t("Desarrollo Activo", "In Active Development"),
-    },
-    {
-      title: "Simulador Biomédico IoT",
-      description: t(
-        "Modelo 3D de cerebro con meningioma simulado. Integración de fotorresistencias, telemetría y placas ESP32/Arduino para emular navegación quirúrgica precisa.",
-        "3D brain model with simulated meningioma. Integration of photoresistors, telemetry, and ESP32/Arduino boards to emulate precise surgical navigation."
-      ),
-      tags: ["C++", "ESP32", "Arduino", "IoT", "Biomedicina"],
-      link: "#",
-      featured: true,
-      status: "Hardware & Software",
-    },
-    {
-      title: "BarberSaaS",
-      description: t(
-        "Plataforma multi-tenant diseñada para la gestión integral de barberías. Sistema robusto de control de acceso, reservas y administración.",
-        "Multi-tenant platform designed for comprehensive barbershop management. Robust access control, booking, and administration system."
-      ),
-      tags: ["Angular", "Node.js", "Prisma", "PostgreSQL"],
-      link: "#",
-    },
-    {
-      title: "GA3 Energy Sostenible",
-      description: t(
-        "Plataforma corporativa diseñada para alta conversión y credibilidad en el sector renovable.",
-        "Corporate platform engineered for high conversion and credibility in the renewable sector."
-      ),
-      tags: ["WordPress", "UI/UX", "SEO"],
-      link: "https://ga3energysostenible.com",
-    },
-    {
-      title: "Rápido y Furiosos Mensajería",
-      description: t(
-        "Marketplace de logística y mensajería. Incluye notificaciones automáticas de pedidos por WhatsApp y ecosistemas personalizados para vendedores.",
-        "Logistics marketplace and delivery platform. Features automated WhatsApp order notifications and custom vendor ecosystems."
-      ),
-      tags: ["E-commerce", "Logística", "Automatización"],
-      link: "http://rapidoyfuriososmensajeriarentsas.com",
-    },
-    {
-      title: "LabFast",
-      description: t(
-        "Propuesta de innovación social y tecnológica enfocada en optimizar la logística de salud de última milla para entrega rápida de resultados.",
-        "Social and technological innovation proposal focused on optimizing last-mile health logistics for rapid delivery of results."
-      ),
-      tags: ["Innovación", "HealthTech", "Logística"],
-      link: "#",
-    },
-    {
-      title: "Auditoría ISO 12207:2017 & Logística",
-      description: t(
-        "Gestión de auditoría de software basada en el estándar internacional y resolución profunda de arquitectura en módulos de tareas para producción de eventos (Crater Invoice).",
-        "Software audit management based on the international standard and deep architecture resolution in task modules for event production (Crater Invoice)."
-      ),
-      tags: ["QA", "ISO 12207", "Backend"],
-      link: "#",
-    },
-    {
-      title: "MongoBites",
-      description: t(
-        "API RESTful escalable y sistema de gestión CRUD construido con Flask.",
-        "Scalable RESTful API and CRUD management system built with Flask."
-      ),
-      tags: ["Python", "Flask", "MongoDB"],
-      link: "https://github.com/Arango134204/MongoBites",
-    }
-  ];
+  const filters: { id: FilterId; label: string; count: number }[] = useMemo(() => {
+    const count = (id: FilterId) =>
+      id === "all" ? projects.length : projects.filter((p) => p.category === id).length;
+
+    return [
+      { id: "websites", label: t("Sitios web", "Websites"), count: count("websites") },
+      { id: "saas", label: "SaaS", count: count("saas") },
+      { id: "agency", label: t("Agencia", "Agency"), count: count("agency") },
+      { id: "other", label: t("Otros", "Other"), count: count("other") },
+      { id: "all", label: t("Todos", "All"), count: count("all") },
+    ];
+  }, [t]);
+
+  const visible = useMemo(() => {
+    const list =
+      filter === "all" ? projects : projects.filter((p) => p.category === filter);
+    return [...list].sort((a, b) => Number(!!b.featured) - Number(!!a.featured));
+  }, [filter]);
+
+  const liveCount = projects.filter((p) => p.link !== "#" && !p.link.includes("github.com")).length;
 
   return (
     <section id="projects" className="py-24 max-w-7xl mx-auto px-6 relative z-10 border-t border-white/5">
-      <div className="mb-16">
-        <h2 className="text-4xl md:text-6xl font-bold text-white mb-6">
-          {t("Proyectos ", "Featured ")} <span className="text-transparent bg-clip-text bg-linear-to-r from-teal-400 to-emerald-600">{t("Destacados", "Projects")}</span>
-        </h2>
-        <p className="text-neutral-400 max-w-2xl text-lg">
-          {t(
-            "Una selección de mi trabajo reciente, abarcando desde plataformas SaaS institucionales para agencias hasta sitios corporativos, integración de hardware IoT y auditorías de software.",
-            "A selection of my recent work, ranging from enterprise agency SaaS platforms to corporate sites, IoT hardware integration, and software auditing."
-          )}
-        </p>
+      <div className="mb-10 md:mb-12 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+        <div className="max-w-2xl">
+          <h2 className="text-4xl md:text-6xl font-bold text-white mb-4">
+            {t("Proyectos ", "Selected ")}
+            <span className="text-transparent bg-clip-text bg-linear-to-r from-teal-400 to-emerald-600">
+              {t("en producción", "work")}
+            </span>
+          </h2>
+          <p className="text-neutral-400 text-lg leading-relaxed">
+            {t(
+              `${liveCount}+ sitios y plataformas entregados: quick builds de clientes, SaaS de agencia y productos propios. Filtra por tipo.`,
+              `${liveCount}+ shipped sites and platforms — client quick builds, agency SaaS, and personal products. Filter by type.`
+            )}
+          </p>
+        </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {projects.map((project, i) => (
-          <motion.div
-            key={i}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: i * 0.1 }}
-            viewport={{ once: true }}
-            className={`group relative p-8 rounded-3xl bg-neutral-900/50 border border-neutral-800 hover:bg-neutral-800/50 hover:border-teal-500/30 transition-colors flex flex-col justify-between ${project.featured ? 'lg:col-span-2' : ''}`}
-          >
-            <div>
-              <div className="flex justify-between items-start mb-6">
-                <h3 className="text-2xl md:text-3xl font-bold text-white group-hover:text-teal-300 transition-colors">
-                  {project.title}
-                </h3>
-                {project.link !== "#" && (
-                  <a href={project.link} target="_blank" rel="noopener noreferrer" className="p-2 bg-neutral-950 rounded-full text-neutral-400 hover:text-teal-400 hover:scale-110 transition-all">
-                    {project.link.includes('github.com') ? <SiGithub className="w-5 h-5" /> : <ArrowUpRight className="w-5 h-5" />}
-                  </a>
-                )}
-              </div>
-              
-              {project.status && (
-                <div className="mb-4 inline-flex items-center gap-2 px-3 py-1 rounded-full border border-teal-500/30 bg-teal-500/10">
-                  <span className="w-1.5 h-1.5 rounded-full bg-teal-400 animate-pulse"></span>
-                  <span className="text-xs font-medium text-teal-300">{project.status}</span>
+      <div
+        className="mb-10 flex flex-wrap gap-2"
+        role="tablist"
+        aria-label={t("Filtrar proyectos", "Filter projects")}
+      >
+        {filters.map((f) => {
+          const active = filter === f.id;
+          return (
+            <button
+              key={f.id}
+              type="button"
+              role="tab"
+              aria-selected={active}
+              onClick={() => setFilter(f.id)}
+              className={`inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium transition-colors ${
+                active
+                  ? "border-teal-500/50 bg-teal-500/15 text-teal-200"
+                  : "border-neutral-800 bg-neutral-950/60 text-neutral-400 hover:border-neutral-600 hover:text-neutral-200"
+              }`}
+            >
+              {f.label}
+              <span
+                className={`rounded-full px-1.5 py-0.5 text-[11px] tabular-nums ${
+                  active ? "bg-teal-500/20 text-teal-300" : "bg-neutral-900 text-neutral-500"
+                }`}
+              >
+                {f.count}
+              </span>
+            </button>
+          );
+        })}
+      </div>
+
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={filter}
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -8 }}
+          transition={{ duration: 0.25 }}
+          className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-5"
+        >
+          {visible.map((project, i) => {
+            const description =
+              lang === "ES" ? project.description.es : project.description.en;
+            const status = project.status
+              ? lang === "ES"
+                ? project.status.es
+                : project.status.en
+              : null;
+            const hasLink = project.link !== "#";
+            const isGithub = project.link.includes("github.com");
+
+            return (
+              <motion.article
+                key={project.id}
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.35, delay: Math.min(i * 0.04, 0.28) }}
+                className={`group relative flex flex-col rounded-2xl border p-6 transition-colors ${
+                  project.featured
+                    ? "border-teal-500/25 bg-neutral-900/70 hover:border-teal-500/45"
+                    : "border-neutral-800 bg-neutral-900/40 hover:border-neutral-600 hover:bg-neutral-900/70"
+                }`}
+              >
+                <div className="mb-4 flex items-start justify-between gap-3">
+                  <div className="min-w-0">
+                    <h3 className="text-lg font-bold text-white leading-snug group-hover:text-teal-300 transition-colors">
+                      {project.title}
+                    </h3>
+                    {status && (
+                      <div className="mt-2 inline-flex items-center gap-2 rounded-full border border-teal-500/25 bg-teal-500/10 px-2.5 py-0.5">
+                        <span className="h-1.5 w-1.5 rounded-full bg-teal-400" />
+                        <span className="text-[11px] font-medium text-teal-300">{status}</span>
+                      </div>
+                    )}
+                  </div>
+                  {hasLink && (
+                    <a
+                      href={project.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={t(`Abrir ${project.title}`, `Open ${project.title}`)}
+                      className="shrink-0 rounded-full bg-neutral-950 p-2 text-neutral-400 transition-all hover:scale-110 hover:text-teal-400"
+                    >
+                      {isGithub ? (
+                        <SiGithub className="h-4 w-4" />
+                      ) : (
+                        <ArrowUpRight className="h-4 w-4" />
+                      )}
+                    </a>
+                  )}
                 </div>
-              )}
 
-              <p className="text-neutral-400 text-lg mb-8 leading-relaxed">
-                {project.description}
-              </p>
-            </div>
+                <p className="mb-5 flex-1 text-sm leading-relaxed text-neutral-400">
+                  {description}
+                </p>
 
-            <div className="flex flex-wrap gap-2">
-              {project.tags.map((tag, index) => (
-                <span key={index} className="px-3 py-1 text-sm bg-neutral-950 border border-neutral-800 rounded-lg text-neutral-300">
-                  {tag}
-                </span>
-              ))}
-            </div>
-          </motion.div>
-        ))}
-      </div>
+                <div className="flex flex-wrap gap-1.5">
+                  {project.tags.slice(0, 4).map((tag) => (
+                    <span
+                      key={tag}
+                      className="rounded-md border border-neutral-800 bg-neutral-950 px-2 py-0.5 text-[11px] text-neutral-400"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </motion.article>
+            );
+          })}
+        </motion.div>
+      </AnimatePresence>
     </section>
   );
 }
