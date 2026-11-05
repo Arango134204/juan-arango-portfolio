@@ -104,7 +104,7 @@ export default function Now() {
           </motion.article>
         </div>
       </div>
-      <img src="/bg/waves.svg" alt="" aria-hidden className="block h-24 w-full rotate-180 bg-ink md:h-36" />
+      <div aria-hidden className="h-24 w-full rotate-180 bg-ink bg-[url('/bg/waves.svg')] bg-size-[100%_100%] md:h-36" />
     </section>
   );
 }

@@ -19,6 +19,8 @@ export type Project = {
   featured?: boolean;
   status?: Localized;
   caseStudy?: CaseStudy;
+  /** Screenshot of the live site, 1440×900, under /public/projects. */
+  image?: string;
 };
 
 export const projects: Project[] = [
@@ -26,6 +28,7 @@ export const projects: Project[] = [
   {
     id: "solis-painting",
     title: "Solis Painting Services",
+    image: "/projects/solis-painting.jpg",
     description: {
       es: "Sitio local de pintura residencial y comercial en Waukegan / Lake County (IL): SEO local, CTAs de estimación, galería de trabajos y contacto bilingüe.",
       en: "Local residential & commercial painting site for Waukegan / Lake County, IL — local SEO, estimate CTAs, project gallery, and bilingual contact.",
@@ -39,6 +42,7 @@ export const projects: Project[] = [
   {
     id: "vicas-investments",
     title: "VICAS Investments",
+    image: "/projects/vicas-investments.jpg",
     description: {
       es: "Plataforma web para creative finance en Southern California: Subject-To, co-living, fix & flip. Calendly, WhatsApp e Instagram integrados.",
       en: "Creative-finance web platform for Southern California — Subject-To, co-living, fix & flip. Calendly, WhatsApp, and Instagram integrated.",
@@ -52,6 +56,7 @@ export const projects: Project[] = [
   {
     id: "art-constructions",
     title: "ART Constructions LLC",
+    image: "/projects/art-constructions.jpg",
     description: {
       es: "Sitio de construcción en Utah: metal buildings, remodelaciones y compra de casas as-is. Estimación gratuita y WhatsApp como canal principal.",
       en: "Utah construction site — metal buildings, remodels, and as-is home purchases. Free estimates with WhatsApp as the primary channel.",
@@ -78,6 +83,7 @@ export const projects: Project[] = [
   {
     id: "glass-mirror-tx",
     title: "Martinez Orlyn Glass & Mirror",
+    image: "/projects/glass-mirror-tx.jpg",
     description: {
       es: "Sitio corporativo en Houston para vidrio y espejos: galería de trabajos reales, CTAs móviles sticky y tracking de conversiones.",
       en: "Houston glass & mirror corporate site — real job gallery, sticky mobile CTAs, and conversion tracking.",
@@ -117,6 +123,7 @@ export const projects: Project[] = [
   {
     id: "listas",
     title: "LISTAS Bienes Raíces",
+    image: "/projects/listas.jpg",
     description: {
       es: "Plataforma inmobiliaria en producción (Pereira / Eje Cafetero): catálogo compra/arriendo, mapa Leaflet 300 m, panel admin, Cloudinary y WhatsApp.",
       en: "Live real-estate platform (Pereira / Coffee Region) — buy/rent catalog, Leaflet 300 m map, admin panel, Cloudinary, and WhatsApp.",
@@ -144,6 +151,7 @@ export const projects: Project[] = [
   {
     id: "valux",
     title: "Valux.hn",
+    image: "/projects/valux.jpg",
     description: {
       es: "Plataforma web de alto rendimiento orientada a conversión, del ecosistema de clientes de Cluster Media.",
       en: "High-performance, conversion-oriented web platform built for the Cluster Media client ecosystem.",
@@ -157,6 +165,7 @@ export const projects: Project[] = [
   {
     id: "ga3",
     title: "GA3 Energy Sostenible",
+    image: "/projects/ga3.jpg",
     description: {
       es: "Plataforma corporativa de alta conversión y credibilidad para el sector de energía renovable.",
       en: "Corporate platform engineered for conversion and credibility in the renewable energy sector.",
@@ -168,6 +177,7 @@ export const projects: Project[] = [
   {
     id: "rapido-furiosos",
     title: "Rápido y Furiosos Mensajería",
+    image: "/projects/rapido-furiosos.jpg",
     description: {
       es: "Marketplace de logística y mensajería con notificaciones automáticas de pedidos por WhatsApp.",
       en: "Logistics marketplace with automated WhatsApp order notifications and custom vendor flows.",
@@ -181,6 +191,7 @@ export const projects: Project[] = [
   {
     id: "cluster-media-web",
     title: "Cluster Media",
+    image: "/projects/cluster-media-web.jpg",
     description: {
       es: "Website principal de la agencia: marketing digital, desarrollo web y automatización para negocios hispanos. Landing premium y funnels de captura.",
       en: "Agency flagship site — digital marketing, web development, and automation for Hispanic businesses. Premium landing + lead funnels.",
@@ -194,6 +205,7 @@ export const projects: Project[] = [
   {
     id: "clusterag",
     title: "CLUSTERAG",
+    image: "/projects/clusterag.jpg",
     description: {
       es: "SaaS interno de productividad y auditoría para producción audiovisual (Podcast Room / Production), integrado a la operación de Cluster Media.",
       en: "Internal productivity & audit SaaS for media production (Podcast Room / Production), wired into Cluster Media operations.",
@@ -221,6 +233,7 @@ export const projects: Project[] = [
   {
     id: "lead-forge",
     title: "Lead-Forge",
+    image: "/projects/lead-forge.jpg",
     description: {
       es: "Prospección y outreach: webhooks CI/CD en Vercel, GoHighLevel y endurecimiento DNS (SPF, DKIM, DMARC) para email outreach.",
       en: "Prospecting & outreach — Vercel CI/CD webhooks, GoHighLevel, and DNS hardening (SPF, DKIM, DMARC) for email pipelines.",

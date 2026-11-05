@@ -1,27 +1,31 @@
 # Juan José Arango | Creative Software Engineer Portfolio
  
-Welcome to the repository of my professional portfolio. This project is a modern, interactive web application built with **Next.js**, **Tailwind CSS**, and **Framer Motion**. It is engineered to showcase a versatile career path spanning full-stack web development, SaaS platforms, e-commerce integrations, IoT systems, and software auditing.
+Welcome to the repository of my professional portfolio. It is built with **Next.js 16**, **Tailwind CSS 4** and **Motion**, with an editorial design and SVG motion work, and showcases full-stack web development, SaaS platforms, e-commerce, IoT systems and software auditing.
  
-🌐 **Live Demo:** [arango.dev](https://juan-arango-portfolio.vercel.app/)
+🌐 **Live:** [juan-arango-portfolio.vercel.app](https://juan-arango-portfolio.vercel.app/)
  
 ---
  
 ## ✨ Key Features
  
-- **Global Bilingual Architecture:** Seamless English/Spanish toggle implemented via a custom React Context (`LanguageContext`), enabling instant translation across the entire application without page reloads.
-- **Interactive 3D Physics:** A custom ID Card component featuring 3D tilt effects, spring physics, and drag gestures powered by `framer-motion`.
-- **Performance & Telemetry Monitoring:** Integrated with **Vercel Speed Insights** for continuous real-time Performance Metrics tracking.
-- **Integrated Web Quoter:** A state-managed, interactive project estimator with dynamic pricing calculations, multi-step validation, and automated WhatsApp message generation.
-- **Modern UI/UX:** Clean, responsive *bento-grid* design pattern, optimized for performance and mobile accessibility using Tailwind CSS.
+- **J·A intro animation:** the initials draw themselves and morph into the `[>_]` mark. Every letter is a cubic-curve SVG path that shares its structure with a logo piece. It plays once per session, can be skipped and respects `prefers-reduced-motion` (append `?intro` to replay it).
+- **Selected work with case studies:** an editorial project list with a cursor-following screenshot preview; each row morphs into a case study (Motion Primitives `MorphingDialog`).
+- **Bilingual EN/ES:** a `LanguageContext` that remembers the choice and defaults to the browser language on the first visit.
+- **Project quoter:** a multi-step estimator with COP/USD pricing and a pre-filled WhatsApp message.
+- **Contact form:** sends email through the Resend API from `/api/contact`, with validation and a honeypot field.
+- **Interactive ID card:** 3D tilt, spring physics and drag gestures.
+- **Monitoring:** Vercel Web Analytics (with custom events) and Speed Insights.
+ 
 ---
  
 ## 🛠 Technical Stack
  
 ### Frontend & UI
-- Next.js (App Router)
-- React 18 & TypeScript
-- Tailwind CSS
-- Framer Motion
+- Next.js (App Router) & React 19
+- TypeScript
+- Tailwind CSS 4
+- Motion & Motion Primitives
+- Instrument Serif, Instrument Sans & JetBrains Mono
 - Lucide React & React Icons
 ### Backend, E-Commerce & CMS
 - Node.js & Express
@@ -84,6 +88,16 @@ npm run dev
  
 This application is continuously deployed on the Vercel platform. Every push to the `main` branch triggers an automated build and deployment process, ensuring the production environment is always up to date.
  
+### Environment variables
+
+| Variable | Required | Purpose |
+| --- | --- | --- |
+| `RESEND_API_KEY` | Yes, for the contact form | Resend API key used by `/api/contact`. Without it the form shows an error and points visitors to WhatsApp/email. |
+| `CONTACT_TO_EMAIL` | No | Inbox that receives messages (defaults to `arangojuanjoseweb@gmail.com`). |
+| `CONTACT_FROM_EMAIL` | No | Sender address on a domain verified in Resend (defaults to `onboarding@resend.dev`, which can only deliver to the Resend account owner). |
+
+Web Analytics must be enabled in the Vercel project (Analytics tab) for page views and custom events to be collected.
+
 For more details, check out the [Next.js Deployment Documentation](https://nextjs.org/docs/deployment).
  
 ---

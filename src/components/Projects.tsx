@@ -1,7 +1,8 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { motion } from "motion/react";
+import Image from "next/image";
+import { motion, useMotionValue, useSpring, useTransform } from "motion/react";
 import { ArrowUpRight, Plus, X } from "lucide-react";
 import {
   MorphingDialog,
@@ -19,10 +20,17 @@ import { projects, type Localized, type Project, type ProjectCategory } from "@/
 type FilterId = "featured" | "all" | ProjectCategory;
 
 const DIALOG_TRANSITION = { type: "spring", bounce: 0.05, duration: 0.45 } as const;
+const PREVIEW_SPRING = { stiffness: 300, damping: 30, mass: 0.5 };
+const projectsWithImages = projects.filter((p) => p.image);
 
 export default function Projects() {
   const { t } = useLanguage();
   const [filter, setFilter] = useState<FilterId>("featured");
+  const [hovered, setHovered] = useState<Project | null>(null);
+  const cursorX = useMotionValue(0);
+  const cursorY = useMotionValue(0);
+  const previewX = useSpring(useTransform(cursorX, (x) => x + 28), PREVIEW_SPRING);
+  const previewY = useSpring(useTransform(cursorY, (y) => y - 100), PREVIEW_SPRING);
 
   const filters = useMemo(() => {
     const count = (id: FilterId) =>
@@ -82,17 +90,50 @@ export default function Projects() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.3 }}
+        onMouseMove={(e) => {
+          cursorX.set(e.clientX);
+          cursorY.set(e.clientY);
+        }}
+        onMouseLeave={() => setHovered(null)}
         className="border-t border-line"
       >
         {visible.map((project, i) => (
-          <ProjectRow key={project.id} project={project} index={i} />
+          <ProjectRow key={project.id} project={project} index={i} onHover={setHovered} />
         ))}
       </motion.ul>
+
+      <motion.div
+        aria-hidden
+        style={{ x: previewX, y: previewY }}
+        initial={false}
+        animate={hovered?.image ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.85 }}
+        transition={{ duration: 0.25, ease: "easeOut" }}
+        className="pointer-events-none fixed top-0 left-0 z-40 hidden aspect-16/10 w-80 overflow-hidden rounded-xl border border-line bg-ink-2 shadow-2xl shadow-black/60 md:block"
+      >
+        {projectsWithImages.map((project) => (
+          <Image
+            key={project.id}
+            src={project.image!}
+            alt=""
+            fill
+            sizes="320px"
+            className={`object-cover object-top transition-opacity duration-200 ${hovered?.id === project.id ? "opacity-100" : "opacity-0"}`}
+          />
+        ))}
+      </motion.div>
     </section>
   );
 }
 
-function ProjectRow({ project, index }: { project: Project; index: number }) {
+function ProjectRow({
+  project,
+  index,
+  onHover,
+}: {
+  project: Project;
+  index: number;
+  onHover: (project: Project | null) => void;
+}) {
   const { t, lang } = useLanguage();
   const pick = (value: Localized) => (lang === "ES" ? value.es : value.en);
   const hasLink = project.link !== "#";
@@ -104,6 +145,8 @@ function ProjectRow({ project, index }: { project: Project; index: number }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-5% 0px" }}
       transition={{ duration: 0.5, delay: Math.min(index * 0.05, 0.3) }}
+      onMouseEnter={() => onHover(project)}
+      onClick={() => onHover(null)}
       className="border-b border-line"
     >
       <MorphingDialog transition={DIALOG_TRANSITION}>
@@ -143,6 +186,17 @@ function ProjectRow({ project, index }: { project: Project; index: number }) {
                 exit: { opacity: 0, y: 16 },
               }}
             >
+              {project.image && (
+                <div className="relative mt-6 aspect-16/10 overflow-hidden rounded-xl border border-line">
+                  <Image
+                    src={project.image}
+                    alt={t(`Captura de ${project.title}`, `${project.title} screenshot`)}
+                    fill
+                    sizes="(min-width: 768px) 592px, 90vw"
+                    className="object-cover object-top"
+                  />
+                </div>
+              )}
               <p className="mt-6 text-lg leading-relaxed text-bone/90">{pick(project.description)}</p>
 
               {project.caseStudy && (

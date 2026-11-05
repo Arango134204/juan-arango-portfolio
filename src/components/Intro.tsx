@@ -1,7 +1,7 @@
 "use client";
 
 import { AnimatePresence, motion } from "motion/react";
-import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
+import { createContext, useContext, useEffect, useState, useSyncExternalStore, type ReactNode } from "react";
 import { JA_BUILD_ORDER, JA_CURSOR_ID, JA_STROKES, JA_VIEWBOX } from "@/lib/ja-logo";
 
 export const INTRO_STORAGE_KEY = "arango:intro-seen";
@@ -26,29 +26,35 @@ const IntroContext = createContext(false);
 
 export const useIntroDone = () => useContext(IntroContext);
 
+// The starting mode is read once per page load; it must stay stable across renders.
+let startMode: Mode | null = null;
+const getStartMode = (): Mode => {
+  if (startMode) return startMode;
+  if (document.documentElement.classList.contains("intro-seen")) startMode = "done";
+  else startMode = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "reduced" : "full";
+  return startMode;
+};
+const subscribe = () => () => {};
+
 export function IntroProvider({ children }: { children: ReactNode }) {
-  const [mode, setMode] = useState<Mode>("pending");
+  const initialMode = useSyncExternalStore(subscribe, getStartMode, () => "pending" as Mode);
+  const [finished, setFinished] = useState(false);
+  const mode: Mode = finished ? "done" : initialMode;
 
   useEffect(() => {
-    const root = document.documentElement;
-    if (root.classList.contains("intro-seen")) {
-      setMode("done");
-      return;
-    }
+    if (initialMode === "pending" || initialMode === "done") return;
     try {
       sessionStorage.setItem(INTRO_STORAGE_KEY, "1");
     } catch {}
 
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    setMode(reduced ? "reduced" : "full");
-    const finish = () => setMode("done");
-    const timer = window.setTimeout(finish, reduced ? REDUCED_DURATION_MS : FULL_DURATION_MS);
+    const finish = () => setFinished(true);
+    const timer = window.setTimeout(finish, initialMode === "reduced" ? REDUCED_DURATION_MS : FULL_DURATION_MS);
     window.addEventListener("keydown", finish);
     return () => {
       window.clearTimeout(timer);
       window.removeEventListener("keydown", finish);
     };
-  }, []);
+  }, [initialMode]);
 
   const reduced = mode === "reduced";
 
@@ -60,7 +66,7 @@ export function IntroProvider({ children }: { children: ReactNode }) {
           <motion.div
             data-intro
             aria-hidden
-            onClick={() => setMode("done")}
+            onClick={() => setFinished(true)}
             exit={{ clipPath: "inset(0 0 100% 0)" }}
             initial={{ clipPath: "inset(0 0 0% 0)" }}
             transition={{ duration: 0.7, ease: EASE }}

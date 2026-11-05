@@ -3,7 +3,13 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { ArrowRight, ArrowLeft, Send, Plus, Minus, Check } from "lucide-react";
+import { track } from "@vercel/analytics";
 import { useLanguage } from "@/context/LanguageContext";
+
+type Currency = "COP" | "USD";
+
+// Prices are defined in COP; USD totals use this fixed rate and round up to the nearest $5.
+const COP_PER_USD = 4000;
 
 export default function Quoter() {
   const { t, lang } = useLanguage();
@@ -37,6 +43,7 @@ export default function Quoter() {
   const [funciones, setFunciones] = useState<string[]>([]);
   const [disenoId, setDisenoId] = useState("base");
   const [entregaId, setEntregaId] = useState("normal");
+  const [currencyChoice, setCurrencyChoice] = useState<Currency | null>(null);
 
   const tipo = TIPO_SITIO.find(t => t.id === tipoId)!;
   const diseno = TIPO_DISENO.find(d => d.id === disenoId)!;
@@ -56,15 +63,18 @@ export default function Quoter() {
   };
 
   const total = calcularSubtotal();
-  const formatCurrency = (amount: number) => 
-    new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', maximumFractionDigits: 0 }).format(amount);
+  const currency: Currency = currencyChoice ?? (lang === "ES" ? "COP" : "USD");
+  const formatCurrency = (amountCop: number) =>
+    currency === "COP"
+      ? `${new Intl.NumberFormat("es-CO", { style: "currency", currency: "COP", maximumFractionDigits: 0 }).format(amountCop)} COP`
+      : `${new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 }).format(Math.ceil(amountCop / COP_PER_USD / 5) * 5)} USD`;
 
   const generarWhatsApp = () => {
     const funcsSeleccionadas = funciones.map(id => FUNCIONES_EXTRA.find(f => f.id === id)?.title).join(", ") || t("Ninguna", "None");
     
-    const mensajeEs = `Hola 👋 Quiero cotizar un sitio web.\n\n📌 Detalle:\n- Tipo: ${tipo.title}\n- Páginas: ${paginas}\n- Funcionalidades: ${funcsSeleccionadas}\n- Diseño: ${diseno.title}\n- Entrega: ${entrega.title}\n\n💰 Total estimado: ${formatCurrency(total)} COP`;
+    const mensajeEs = `Hola 👋 Quiero cotizar un sitio web.\n\n📌 Detalle:\n- Tipo: ${tipo.title}\n- Páginas: ${paginas}\n- Funcionalidades: ${funcsSeleccionadas}\n- Diseño: ${diseno.title}\n- Entrega: ${entrega.title}\n\n💰 Total estimado: ${formatCurrency(total)}`;
     
-    const mensajeEn = `Hi 👋 I want to request a web quote.\n\n📌 Details:\n- Type: ${tipo.title}\n- Pages: ${paginas}\n- Features: ${funcsSeleccionadas}\n- Design: ${diseno.title}\n- Timeline: ${entrega.title}\n\n💰 Estimated total: ${formatCurrency(total)} COP`;
+    const mensajeEn = `Hi 👋 I want to request a web quote.\n\n📌 Details:\n- Type: ${tipo.title}\n- Pages: ${paginas}\n- Features: ${funcsSeleccionadas}\n- Design: ${diseno.title}\n- Timeline: ${entrega.title}\n\n💰 Estimated total: ${formatCurrency(total)}`;
     
     return `https://wa.me/573006030655?text=${encodeURIComponent(lang === 'ES' ? mensajeEs : mensajeEn)}`;
   };
@@ -104,8 +114,23 @@ export default function Quoter() {
         </div>
 
         {step < 5 && (
-          <div className="flex justify-between items-center mb-8 pb-6 border-b border-line">
-            <span className="text-muted">{t("Total estimado:", "Estimated total:")}</span>
+          <div className="flex flex-wrap justify-between items-center gap-4 mb-8 pb-6 border-b border-line">
+            <div className="flex items-center gap-4">
+              <span className="text-muted">{t("Total estimado:", "Estimated total:")}</span>
+              <div role="group" aria-label={t("Moneda", "Currency")} className="flex rounded-full border border-line p-0.5 font-mono text-xs">
+                {(["COP", "USD"] as const).map((code) => (
+                  <button
+                    key={code}
+                    type="button"
+                    onClick={() => setCurrencyChoice(code)}
+                    aria-pressed={currency === code}
+                    className={`cursor-pointer rounded-full px-3 py-1 transition-colors ${currency === code ? "bg-bone text-ink" : "text-muted hover:text-bone"}`}
+                  >
+                    {code}
+                  </button>
+                ))}
+              </div>
+            </div>
             <span className="text-2xl md:text-3xl font-semibold text-signal">{formatCurrency(total)}</span>
           </div>
         )}
@@ -217,7 +242,8 @@ export default function Quoter() {
                 </div>
                 
                 <a 
-                  href={generarWhatsApp()} 
+                  href={generarWhatsApp()}
+                  onClick={() => track("Quote Sent", { type: tipo.id, currency })}
                   target="_blank" 
                   rel="noopener noreferrer" 
                   className="inline-flex items-center gap-3 px-8 py-4 bg-signal hover:bg-bone text-ink font-semibold rounded-full transition-colors"
