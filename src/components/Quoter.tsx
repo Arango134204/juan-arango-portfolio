@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence } from "motion/react";
 import { ArrowRight, ArrowLeft, Send, Plus, Minus, Check } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 
@@ -83,19 +83,20 @@ export default function Quoter() {
   };
 
   return (
-    <section id="quote" className="py-24 max-w-4xl mx-auto px-6 relative z-10 border-t border-white/5">
+    <section id="quote" className="py-24 md:py-32 max-w-4xl mx-auto px-6 relative z-10">
       
-      <div className="text-center mb-12">
-        <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
-          {t("Inicia tu ", "Start a ")}<span className="text-transparent bg-clip-text bg-linear-to-r from-teal-400 to-emerald-600">{t("Proyecto", "Project")}</span>
+      <div className="mb-12">
+        <p className="font-mono text-xs uppercase tracking-[0.25em] text-signal mb-6">04 — {t("Cotizar", "Quote")}</p>
+        <h2 className="font-display text-5xl md:text-6xl leading-[1.02] mb-4">
+          {t("Inicia tu ", "Start a ")}<em className="text-muted">{t("proyecto.", "project.")}</em>
         </h2>
-        <p className="text-neutral-400 text-lg">{t("Cotiza tu próxima idea al instante con esta herramienta interactiva.", "Quote your next idea instantly with this interactive tool.")}</p>
+        <p className="text-muted text-lg">{t("Cotiza tu próxima idea al instante con esta herramienta interactiva.", "Quote your next idea instantly with this interactive tool.")}</p>
       </div>
 
-      <div className="bg-neutral-900/50 border border-neutral-800 rounded-3xl p-6 md:p-10 shadow-2xl relative overflow-hidden">
-        <div className="w-full bg-neutral-950 h-2 rounded-full mb-8 overflow-hidden">
+      <div className="bg-ink-2 border border-line rounded-2xl p-6 md:p-10 relative overflow-hidden">
+        <div className="w-full bg-ink h-1 rounded-full mb-8 overflow-hidden">
           <motion.div 
-            className="h-full bg-linear-to-r from-teal-500 to-emerald-500"
+            className="h-full bg-signal"
             initial={{ width: 0 }}
             animate={{ width: `${(step / 5) * 100}%` }}
             transition={{ duration: 0.3 }}
@@ -103,9 +104,9 @@ export default function Quoter() {
         </div>
 
         {step < 5 && (
-          <div className="flex justify-between items-center mb-8 pb-6 border-b border-white/5">
-            <span className="text-neutral-400">{t("Total estimado:", "Estimated total:")}</span>
-            <span className="text-2xl md:text-3xl font-bold text-teal-400">{formatCurrency(total)}</span>
+          <div className="flex justify-between items-center mb-8 pb-6 border-b border-line">
+            <span className="text-muted">{t("Total estimado:", "Estimated total:")}</span>
+            <span className="text-2xl md:text-3xl font-semibold text-signal">{formatCurrency(total)}</span>
           </div>
         )}
 
@@ -114,16 +115,16 @@ export default function Quoter() {
             
             {step === 0 && (
               <motion.div key="step0" variants={slideVariants} initial="enter" animate="center" exit="exit" transition={{ duration: 0.3 }}>
-                <h3 className="text-xl text-white font-semibold mb-6">{t("1. ¿Qué tipo de sitio web necesitas?", "1. What type of website do you need?")}</h3>
+                <h3 className="text-xl text-bone font-semibold mb-6">{t("1. ¿Qué tipo de sitio web necesitas?", "1. What type of website do you need?")}</h3>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   {TIPO_SITIO.map(item => (
-                    <button key={item.id} onClick={() => setTipoId(item.id)} className={`p-4 rounded-xl border text-left transition-all ${tipoId === item.id ? 'bg-teal-500/10 border-teal-500' : 'bg-neutral-950 border-neutral-800 hover:border-neutral-600'}`}>
+                    <button key={item.id} onClick={() => setTipoId(item.id)} className={`p-4 rounded-lg border text-left transition-all ${tipoId === item.id ? 'bg-signal/10 border-signal' : 'bg-ink border-line hover:border-muted'}`}>
                       <div className="flex justify-between items-start mb-2">
-                        <h4 className="font-bold text-white">{item.title}</h4>
-                        {tipoId === item.id && <Check className="w-5 h-5 text-teal-400" />}
+                        <h4 className="font-semibold text-bone">{item.title}</h4>
+                        {tipoId === item.id && <Check className="w-5 h-5 text-signal" />}
                       </div>
-                      <p className="text-xs text-neutral-400 mb-4">{item.desc}</p>
-                      <p className="text-teal-400 font-mono text-sm">{formatCurrency(item.price)}</p>
+                      <p className="text-xs text-muted mb-4">{item.desc}</p>
+                      <p className="text-signal font-mono text-sm">{formatCurrency(item.price)}</p>
                     </button>
                   ))}
                 </div>
@@ -132,30 +133,30 @@ export default function Quoter() {
 
             {step === 1 && (
               <motion.div key="step1" variants={slideVariants} initial="enter" animate="center" exit="exit" transition={{ duration: 0.3 }}>
-                <h3 className="text-xl text-white font-semibold mb-2">{t("2. ¿Cuántas páginas en total?", "2. How many pages in total?")}</h3>
-                <p className="text-neutral-500 mb-8 text-sm">{t(`El sitio base incluye 1 página. Cada adicional suma ${formatCurrency(PRECIO_PAGINA_EXTRA)}.`, `The base site includes 1 page. Each additional page adds ${formatCurrency(PRECIO_PAGINA_EXTRA)}.`)}</p>
-                <div className="flex items-center justify-center gap-6 bg-neutral-950 p-8 rounded-2xl border border-neutral-800 w-max mx-auto">
-                  <button onClick={() => setPaginas(Math.max(1, paginas - 1))} className="p-3 bg-neutral-900 hover:bg-neutral-800 text-white rounded-full transition-colors"><Minus className="w-6 h-6"/></button>
-                  <span className="text-5xl font-bold text-white w-16 text-center">{paginas}</span>
-                  <button onClick={() => setPaginas(paginas + 1)} className="p-3 bg-neutral-900 hover:bg-neutral-800 text-white rounded-full transition-colors"><Plus className="w-6 h-6"/></button>
+                <h3 className="text-xl text-bone font-semibold mb-2">{t("2. ¿Cuántas páginas en total?", "2. How many pages in total?")}</h3>
+                <p className="text-muted mb-8 text-sm">{t(`El sitio base incluye 1 página. Cada adicional suma ${formatCurrency(PRECIO_PAGINA_EXTRA)}.`, `The base site includes 1 page. Each additional page adds ${formatCurrency(PRECIO_PAGINA_EXTRA)}.`)}</p>
+                <div className="flex items-center justify-center gap-6 bg-ink p-8 rounded-2xl border border-line w-max mx-auto">
+                  <button onClick={() => setPaginas(Math.max(1, paginas - 1))} className="p-3 bg-ink-3 hover:bg-ink-2 text-bone rounded-full transition-colors"><Minus className="w-6 h-6"/></button>
+                  <span className="text-5xl font-semibold text-bone w-16 text-center">{paginas}</span>
+                  <button onClick={() => setPaginas(paginas + 1)} className="p-3 bg-ink-3 hover:bg-ink-2 text-bone rounded-full transition-colors"><Plus className="w-6 h-6"/></button>
                 </div>
               </motion.div>
             )}
 
             {step === 2 && (
               <motion.div key="step2" variants={slideVariants} initial="enter" animate="center" exit="exit" transition={{ duration: 0.3 }}>
-                <h3 className="text-xl text-white font-semibold mb-6">{t("3. Funcionalidades Extra (Opcional)", "3. Extra Features (Optional)")}</h3>
+                <h3 className="text-xl text-bone font-semibold mb-6">{t("3. Funcionalidades Extra (Opcional)", "3. Extra Features (Optional)")}</h3>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   {FUNCIONES_EXTRA.map(item => {
                     const isSelected = funciones.includes(item.id);
                     return (
-                      <button key={item.id} onClick={() => toggleFuncion(item.id)} className={`p-4 rounded-xl border text-left transition-all ${isSelected ? 'bg-teal-500/10 border-teal-500' : 'bg-neutral-950 border-neutral-800 hover:border-neutral-600'}`}>
+                      <button key={item.id} onClick={() => toggleFuncion(item.id)} className={`p-4 rounded-lg border text-left transition-all ${isSelected ? 'bg-signal/10 border-signal' : 'bg-ink border-line hover:border-muted'}`}>
                         <div className="flex justify-between items-start mb-2">
-                          <h4 className="font-bold text-white">{item.title}</h4>
-                          {isSelected && <Check className="w-5 h-5 text-teal-400" />}
+                          <h4 className="font-semibold text-bone">{item.title}</h4>
+                          {isSelected && <Check className="w-5 h-5 text-signal" />}
                         </div>
-                        <p className="text-xs text-neutral-400 mb-4">{item.desc}</p>
-                        <p className="text-teal-400 font-mono text-sm">+{formatCurrency(item.price)}</p>
+                        <p className="text-xs text-muted mb-4">{item.desc}</p>
+                        <p className="text-signal font-mono text-sm">+{formatCurrency(item.price)}</p>
                       </button>
                     )
                   })}
@@ -165,16 +166,16 @@ export default function Quoter() {
 
             {step === 3 && (
               <motion.div key="step3" variants={slideVariants} initial="enter" animate="center" exit="exit" transition={{ duration: 0.3 }}>
-                <h3 className="text-xl text-white font-semibold mb-6">{t("4. Tipo de Diseño", "4. Design Type")}</h3>
+                <h3 className="text-xl text-bone font-semibold mb-6">{t("4. Tipo de Diseño", "4. Design Type")}</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {TIPO_DISENO.map(item => (
-                    <button key={item.id} onClick={() => setDisenoId(item.id)} className={`p-4 rounded-xl border text-left transition-all ${disenoId === item.id ? 'bg-teal-500/10 border-teal-500' : 'bg-neutral-950 border-neutral-800 hover:border-neutral-600'}`}>
+                    <button key={item.id} onClick={() => setDisenoId(item.id)} className={`p-4 rounded-lg border text-left transition-all ${disenoId === item.id ? 'bg-signal/10 border-signal' : 'bg-ink border-line hover:border-muted'}`}>
                       <div className="flex justify-between items-start mb-2">
-                        <h4 className="font-bold text-white">{item.title}</h4>
-                        {disenoId === item.id && <Check className="w-5 h-5 text-teal-400" />}
+                        <h4 className="font-semibold text-bone">{item.title}</h4>
+                        {disenoId === item.id && <Check className="w-5 h-5 text-signal" />}
                       </div>
-                      <p className="text-xs text-neutral-400 mb-4">{item.desc}</p>
-                      <p className="text-teal-400 font-mono text-sm">{item.price === 0 ? t("Incluido", "Included") : `+${formatCurrency(item.price)}`}</p>
+                      <p className="text-xs text-muted mb-4">{item.desc}</p>
+                      <p className="text-signal font-mono text-sm">{item.price === 0 ? t("Incluido", "Included") : `+${formatCurrency(item.price)}`}</p>
                     </button>
                   ))}
                 </div>
@@ -183,15 +184,15 @@ export default function Quoter() {
 
             {step === 4 && (
               <motion.div key="step4" variants={slideVariants} initial="enter" animate="center" exit="exit" transition={{ duration: 0.3 }}>
-                <h3 className="text-xl text-white font-semibold mb-6">{t("5. Tiempo de Entrega", "5. Delivery Time")}</h3>
+                <h3 className="text-xl text-bone font-semibold mb-6">{t("5. Tiempo de Entrega", "5. Delivery Time")}</h3>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   {TIEMPO_ENTREGA.map(item => (
-                    <button key={item.id} onClick={() => setEntregaId(item.id)} className={`p-4 rounded-xl border text-left transition-all ${entregaId === item.id ? 'bg-teal-500/10 border-teal-500' : 'bg-neutral-950 border-neutral-800 hover:border-neutral-600'}`}>
+                    <button key={item.id} onClick={() => setEntregaId(item.id)} className={`p-4 rounded-lg border text-left transition-all ${entregaId === item.id ? 'bg-signal/10 border-signal' : 'bg-ink border-line hover:border-muted'}`}>
                       <div className="flex justify-between items-start mb-2">
-                        <h4 className="font-bold text-white">{item.title}</h4>
-                        {entregaId === item.id && <Check className="w-5 h-5 text-teal-400" />}
+                        <h4 className="font-semibold text-bone">{item.title}</h4>
+                        {entregaId === item.id && <Check className="w-5 h-5 text-signal" />}
                       </div>
-                      <p className="text-xs text-neutral-400">{item.desc}</p>
+                      <p className="text-xs text-muted">{item.desc}</p>
                     </button>
                   ))}
                 </div>
@@ -200,18 +201,18 @@ export default function Quoter() {
 
             {step === 5 && (
               <motion.div key="step5" variants={slideVariants} initial="enter" animate="center" exit="exit" transition={{ duration: 0.3 }} className="text-center">
-                <div className="bg-neutral-950 border border-neutral-800 rounded-2xl p-8 mb-8 text-left max-w-lg mx-auto">
-                  <h3 className="text-2xl text-white font-bold mb-6 text-center">{t("Resumen de tu Cotización", "Quote Summary")}</h3>
-                  <div className="space-y-3 text-neutral-300">
-                    <p className="flex justify-between"><span>{t("Tipo:", "Type:")}</span> <span className="font-medium text-white">{tipo.title}</span></p>
-                    <p className="flex justify-between"><span>{t("Páginas:", "Pages:")}</span> <span className="font-medium text-white">{paginas}</span></p>
-                    <p className="flex justify-between"><span>{t("Extras:", "Extras:")}</span> <span className="font-medium text-white text-right">{funciones.length ? funciones.map(id => FUNCIONES_EXTRA.find(f => f.id === id)?.title).join(", ") : t("Ninguna", "None")}</span></p>
-                    <p className="flex justify-between"><span>{t("Diseño:", "Design:")}</span> <span className="font-medium text-white">{diseno.title}</span></p>
-                    <p className="flex justify-between"><span>{t("Entrega:", "Timeline:")}</span> <span className="font-medium text-white">{entrega.title}</span></p>
+                <div className="bg-ink border border-line rounded-2xl p-8 mb-8 text-left max-w-lg mx-auto">
+                  <h3 className="text-2xl text-bone font-semibold mb-6 text-center">{t("Resumen de tu Cotización", "Quote Summary")}</h3>
+                  <div className="space-y-3 text-bone/80">
+                    <p className="flex justify-between"><span>{t("Tipo:", "Type:")}</span> <span className="font-medium text-bone">{tipo.title}</span></p>
+                    <p className="flex justify-between"><span>{t("Páginas:", "Pages:")}</span> <span className="font-medium text-bone">{paginas}</span></p>
+                    <p className="flex justify-between"><span>{t("Extras:", "Extras:")}</span> <span className="font-medium text-bone text-right">{funciones.length ? funciones.map(id => FUNCIONES_EXTRA.find(f => f.id === id)?.title).join(", ") : t("Ninguna", "None")}</span></p>
+                    <p className="flex justify-between"><span>{t("Diseño:", "Design:")}</span> <span className="font-medium text-bone">{diseno.title}</span></p>
+                    <p className="flex justify-between"><span>{t("Entrega:", "Timeline:")}</span> <span className="font-medium text-bone">{entrega.title}</span></p>
                   </div>
-                  <div className="border-t border-neutral-800 mt-6 pt-6 flex justify-between items-center">
-                    <span className="text-lg text-neutral-400">Total:</span>
-                    <span className="text-3xl font-bold text-teal-400">{formatCurrency(total)}</span>
+                  <div className="border-t border-line mt-6 pt-6 flex justify-between items-center">
+                    <span className="text-lg text-muted">Total:</span>
+                    <span className="text-3xl font-semibold text-signal">{formatCurrency(total)}</span>
                   </div>
                 </div>
                 
@@ -219,7 +220,7 @@ export default function Quoter() {
                   href={generarWhatsApp()} 
                   target="_blank" 
                   rel="noopener noreferrer" 
-                  className="inline-flex items-center gap-3 px-8 py-4 bg-[#25D366] hover:bg-[#20b858] text-white font-bold rounded-xl transition-all shadow-lg shadow-[#25D366]/20"
+                  className="inline-flex items-center gap-3 px-8 py-4 bg-signal hover:bg-bone text-ink font-semibold rounded-full transition-colors"
                 >
                   {t("Enviar por WhatsApp", "Send via WhatsApp")} <Send className="w-5 h-5" />
                 </a>
@@ -229,11 +230,11 @@ export default function Quoter() {
           </AnimatePresence>
         </div>
 
-        <div className="flex justify-between mt-8 pt-6 border-t border-white/5">
+        <div className="flex justify-between mt-8 pt-6 border-t border-line">
           <button 
             onClick={prevStep} 
             disabled={step === 0}
-            className={`flex items-center gap-2 px-6 py-3 rounded-xl font-medium transition-colors ${step === 0 ? 'text-neutral-600 cursor-not-allowed' : 'text-neutral-400 hover:text-white hover:bg-neutral-800'}`}
+            className={`flex items-center gap-2 px-6 py-3 rounded-lg font-medium transition-colors ${step === 0 ? 'text-muted/40 cursor-not-allowed' : 'text-muted hover:text-bone hover:bg-ink-3'}`}
           >
             <ArrowLeft className="w-4 h-4" /> {t("Anterior", "Back")}
           </button>
@@ -241,7 +242,7 @@ export default function Quoter() {
           {step < 5 && (
             <button 
               onClick={nextStep} 
-              className="flex items-center gap-2 px-6 py-3 bg-white text-black hover:bg-neutral-200 rounded-xl font-bold transition-colors"
+              className="flex items-center gap-2 px-6 py-3 bg-bone text-ink hover:bg-signal rounded-lg font-semibold transition-colors"
             >
               {t("Siguiente", "Next")} <ArrowRight className="w-4 h-4" />
             </button>
