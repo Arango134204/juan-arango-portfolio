@@ -2,6 +2,12 @@ export type ProjectCategory = "websites" | "saas" | "agency" | "other";
 
 export type Localized = { es: string; en: string };
 
+export type CaseStudy = {
+  challenge: Localized;
+  build: Localized;
+  role: Localized;
+};
+
 export type Project = {
   id: string;
   title: string;
@@ -12,9 +18,37 @@ export type Project = {
   /** Shown first within its filter and with a live/priority badge. */
   featured?: boolean;
   status?: Localized;
+  caseStudy?: CaseStudy;
 };
 
 export const projects: Project[] = [
+  {
+    id: "sigba",
+    title: "SIGBA",
+    description: {
+      es: "Sistema de gestión de beneficiarios para el Banco de Alimentos de Pereira y sus parroquias, con logo animado en SVG que se transforma en una iglesia.",
+      en: "Beneficiary management system for the Pereira Food Bank and its parishes, with an SVG logo that morphs into a church.",
+    },
+    tags: ["Next.js", "Motion", "shadcn/ui", "Accessibility"],
+    link: "https://github.com/Arango134204/interfaz-crud-beneficiarios",
+    category: "saas",
+    featured: true,
+    status: { es: "Nuevo · UAM", en: "New · UAM" },
+    caseStudy: {
+      challenge: {
+        es: "Las parroquias necesitaban registrar y mantener a sus beneficiarios de forma ordenada, con una interfaz usable por personas de todas las edades.",
+        en: "Parishes needed an orderly way to register and maintain their beneficiaries, with an interface usable by people of all ages.",
+      },
+      build: {
+        es: "Next.js con sesión por parroquia, CRUD con validación, activación/desactivación de beneficiarios y un panel de accesibilidad para tema, tamaño de letra y animaciones. La intro dibuja las letras SIGBA y las transforma en una iglesia con paths SVG.",
+        en: "Next.js with per-parish sessions, validated CRUD, beneficiary activation toggles and an accessibility panel for theme, text size and motion. The intro draws the SIGBA letters and morphs them into a church with SVG paths.",
+      },
+      role: {
+        es: "Diseño, frontend y motion design del logo e intro.",
+        en: "Design, frontend, and motion design for the logo and intro.",
+      },
+    },
+  },
   // —— Recent client websites (Cluster / freelance delivery) ——
   {
     id: "solis-painting",
@@ -119,6 +153,20 @@ export const projects: Project[] = [
     category: "websites",
     featured: true,
     status: { es: "Cliente · En producción", en: "Client · Live" },
+    caseStudy: {
+      challenge: {
+        es: "Una inmobiliaria del Eje Cafetero necesitaba publicar y administrar su catálogo de compra y arriendo sin depender de portales externos.",
+        en: "A Coffee Region real-estate agency needed to publish and manage its buy/rent catalog without relying on third-party portals.",
+      },
+      build: {
+        es: "Frontend en Angular con API en Node.js y MySQL, imágenes en Cloudinary, mapa Leaflet con radio de 300 m alrededor de cada inmueble, panel de administración y contacto directo por WhatsApp.",
+        en: "Angular frontend with a Node.js + MySQL API, Cloudinary images, a Leaflet map with a 300 m radius around each property, an admin panel, and direct WhatsApp contact.",
+      },
+      role: {
+        es: "Desarrollo full-stack y despliegue a producción.",
+        en: "Full-stack development and production deployment.",
+      },
+    },
   },
   {
     id: "valux",
@@ -182,6 +230,20 @@ export const projects: Project[] = [
     category: "saas",
     featured: true,
     status: { es: "Cluster Media SaaS", en: "Cluster Media SaaS" },
+    caseStudy: {
+      challenge: {
+        es: "La producción audiovisual de Cluster Media (Podcast Room y Production) se coordinaba sin un registro auditable del trabajo.",
+        en: "Cluster Media's audiovisual production (Podcast Room and Production) ran without an auditable record of the work.",
+      },
+      build: {
+        es: "SaaS interno en Next.js y TypeScript con módulos por área de producción, desplegado en Vercel e integrado a la operación diaria de la agencia.",
+        en: "Internal Next.js + TypeScript SaaS with modules per production area, deployed on Vercel and wired into the agency's daily operations.",
+      },
+      role: {
+        es: "Arquitectura y desarrollo del producto.",
+        en: "Product architecture and development.",
+      },
+    },
   },
   {
     id: "lead-forge",
@@ -195,6 +257,20 @@ export const projects: Project[] = [
     category: "saas",
     featured: true,
     status: { es: "Cluster Media SaaS", en: "Cluster Media SaaS" },
+    caseStudy: {
+      challenge: {
+        es: "La agencia necesitaba prospectar y hacer outreach por email sin caer en spam ni depender de procesos manuales.",
+        en: "The agency needed to prospect and run email outreach without landing in spam or relying on manual work.",
+      },
+      build: {
+        es: "Plataforma en Next.js conectada a GoHighLevel, con webhooks de CI/CD en Vercel y dominios endurecidos con SPF, DKIM y DMARC.",
+        en: "Next.js platform connected to GoHighLevel, with Vercel CI/CD webhooks and domains hardened with SPF, DKIM and DMARC.",
+      },
+      role: {
+        es: "Desarrollo, automatizaciones e infraestructura de email.",
+        en: "Development, automations, and email infrastructure.",
+      },
+    },
   },
 
   // —— Products / personal ——
@@ -209,6 +285,20 @@ export const projects: Project[] = [
     link: "#",
     category: "saas",
     status: { es: "Desarrollo activo", en: "In active development" },
+    caseStudy: {
+      challenge: {
+        es: "Los usuarios de Megabús (AMCO) no tienen información confiable en tiempo real sobre ocupación y llegadas.",
+        en: "Megabús (AMCO) riders lack reliable real-time information about crowding and arrivals.",
+      },
+      build: {
+        es: "App en Kotlin sobre Firebase donde los reportes de los usuarios se combinan con un algoritmo de consenso ponderado y se validan con geofencing por fórmula de Haversine.",
+        en: "Kotlin app on Firebase where rider reports are combined through a weighted consensus algorithm and validated with Haversine geofencing.",
+      },
+      role: {
+        es: "Arquitectura, UX/UI y desarrollo móvil.",
+        en: "Architecture, UX/UI, and mobile development.",
+      },
+    },
   },
   {
     id: "barbersaas",

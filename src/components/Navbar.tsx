@@ -1,112 +1,146 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { FaGithub, FaLinkedin, FaWhatsapp, FaEnvelope, FaTimes } from "react-icons/fa";
-import { useLanguage } from "@/context/LanguageContext"; // Importamos el hook
+import { useEffect, useState } from "react";
+import { AnimatePresence, motion } from "motion/react";
+import { ArrowUpRight, X } from "lucide-react";
+import Mark from "@/components/Mark";
+import { useLanguage } from "@/context/LanguageContext";
+
+export const CONTACT_EVENT = "open-contact";
 
 export default function Navbar() {
   const [isContactOpen, setIsContactOpen] = useState(false);
-  const { lang, setLang, t } = useLanguage(); // Traemos el estado global
+  const { lang, setLang, t } = useLanguage();
 
   useEffect(() => {
-    if (isContactOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
+    document.body.style.overflow = isContactOpen ? "hidden" : "";
   }, [isContactOpen]);
+
+  useEffect(() => {
+    const open = () => setIsContactOpen(true);
+    const close = (e: KeyboardEvent) => e.key === "Escape" && setIsContactOpen(false);
+    window.addEventListener(CONTACT_EVENT, open);
+    window.addEventListener("keydown", close);
+    return () => {
+      window.removeEventListener(CONTACT_EVENT, open);
+      window.removeEventListener("keydown", close);
+    };
+  }, []);
+
+  const links = [
+    { href: "#now", label: t("Ahora", "Now") },
+    { href: "#work", label: t("Trabajo", "Work") },
+    { href: "#stack", label: "Stack" },
+    { href: "#quote", label: t("Cotizar", "Quote") },
+  ];
+
+  const channels = [
+    { label: "WhatsApp", detail: "+57 311 400 5275", href: "https://wa.me/573114005275" },
+    { label: "Email", detail: "arangojuanjoseweb@gmail.com", href: "mailto:arangojuanjoseweb@gmail.com" },
+    { label: "LinkedIn", detail: "Juan José Arango", href: "https://www.linkedin.com/in/juan-josé-arango-54924a36a" },
+    { label: "GitHub", detail: "@Arango134204", href: "https://github.com/Arango134204" },
+  ];
 
   return (
     <>
-      <nav className="fixed top-0 w-full z-50 border-b border-white/5 bg-black/40 backdrop-blur-md">
-        <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-          <Link href="#home" className="text-xl font-bold tracking-tighter text-white">
-            arango<span className="text-teal-400">.dev</span>
+      <nav className="fixed top-0 z-50 w-full border-b border-line bg-ink/70 backdrop-blur-md">
+        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
+          <Link href="#home" className="flex items-center gap-3 text-bone" aria-label="Juan José Arango">
+            <Mark className="h-5" />
+            <span className="font-mono text-sm tracking-tight">arango.dev</span>
           </Link>
 
-          <div className="hidden md:flex items-center gap-8 text-sm font-medium text-neutral-400">
-            <Link href="#home" className="hover:text-white transition-colors">{t("Inicio", "Home")}</Link>
-            <Link href="#stack" className="hover:text-white transition-colors">Tech Stack</Link>
-            <Link href="#projects" className="hover:text-white transition-colors">{t("Proyectos", "Projects")}</Link>
-            
-            <button 
-              onClick={() => setIsContactOpen(true)} 
-              className="hover:text-white transition-colors cursor-pointer"
+          <div className="flex items-center gap-6 font-mono text-xs uppercase tracking-widest text-muted">
+            <div className="hidden items-center gap-6 md:flex">
+              {links.map((link, i) => (
+                <Link key={link.href} href={link.href} className="group transition-colors hover:text-bone">
+                  <span aria-hidden className="text-signal/70 group-hover:text-signal">0{i + 1}</span> {link.label}
+                </Link>
+              ))}
+            </div>
+
+            <div className="flex items-center gap-1" role="group" aria-label={t("Idioma", "Language")}>
+              {(["EN", "ES"] as const).map((code, i) => (
+                <span key={code} className="flex items-center gap-1">
+                  {i > 0 && <span aria-hidden>/</span>}
+                  <button
+                    type="button"
+                    onClick={() => setLang(code)}
+                    aria-pressed={lang === code}
+                    className={`cursor-pointer transition-colors ${lang === code ? "text-bone" : "hover:text-bone"}`}
+                  >
+                    {code}
+                  </button>
+                </span>
+              ))}
+            </div>
+
+            <button
+              type="button"
+              onClick={() => setIsContactOpen(true)}
+              className="cursor-pointer rounded-full bg-bone px-4 py-2 text-ink transition-colors hover:bg-signal"
             >
               {t("Contacto", "Contact")}
             </button>
-
-            {/* Toggle de Idioma Real */}
-            <div className="flex bg-neutral-900 rounded-lg p-1 border border-neutral-800 ml-4">
-              <button 
-                onClick={() => setLang("EN")}
-                className={`px-3 py-1 rounded-md transition-all font-bold ${lang === "EN" ? "bg-neutral-800 text-white shadow-sm" : "text-neutral-500 hover:text-neutral-300"}`}
-              >
-                EN
-              </button>
-              <button 
-                onClick={() => setLang("ES")}
-                className={`px-3 py-1 rounded-md transition-all font-bold ${lang === "ES" ? "bg-neutral-800 text-white shadow-sm" : "text-neutral-500 hover:text-neutral-300"}`}
-              >
-                ES
-              </button>
-            </div>
           </div>
         </div>
       </nav>
 
       <AnimatePresence>
         {isContactOpen && (
-          <div className="fixed inset-0 z-100 flex items-center justify-center p-4">
-            <motion.div 
+          <div className="fixed inset-0 z-100 flex items-end justify-center p-4 sm:items-center">
+            <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setIsContactOpen(false)}
-              className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+              className="absolute inset-0 bg-ink/80 backdrop-blur-sm"
             />
-            
-            <motion.div 
-              initial={{ opacity: 0, scale: 0.95, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              className="relative w-full max-w-md bg-neutral-950 border border-neutral-800 rounded-3xl p-8 shadow-2xl"
+
+            <motion.div
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="contact-title"
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 24 }}
+              transition={{ type: "spring", stiffness: 260, damping: 28 }}
+              className="relative w-full max-w-lg rounded-2xl border border-line bg-ink-2 p-8"
             >
-              <button 
+              <button
+                type="button"
                 onClick={() => setIsContactOpen(false)}
-                className="absolute top-6 right-6 text-neutral-500 hover:text-white transition-colors p-2 rounded-full hover:bg-neutral-900"
+                aria-label={t("Cerrar", "Close")}
+                className="absolute top-5 right-5 cursor-pointer rounded-full p-2 text-muted transition-colors hover:text-bone"
               >
-                <FaTimes className="w-5 h-5" />
+                <X className="h-5 w-5" />
               </button>
 
-              <h3 className="text-2xl font-bold text-white mb-2">{t("¡Conectemos!", "Let's connect!")}</h3>
-              <p className="text-neutral-400 mb-8 text-sm">
-                {t("Escoge tu medio favorito. Siempre estoy abierto a discutir nuevos proyectos y oportunidades.", 
-                   "Choose your favorite channel. I'm always open to discussing new projects and opportunities.")}
-              </p>
+              <p className="font-mono text-xs uppercase tracking-widest text-signal">{t("Contacto", "Contact")}</p>
+              <h3 id="contact-title" className="mt-3 font-display text-4xl leading-tight">
+                {t("Hablemos de tu ", "Let's talk about your ")}
+                <em>{t("próximo proyecto.", "next project.")}</em>
+              </h3>
 
-              <div className="flex flex-col gap-3">
-                <a href="https://wa.me/573114005275" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 p-4 rounded-xl bg-neutral-900 border border-neutral-800 hover:border-[#25D366]/50 hover:bg-[#25D366]/10 text-neutral-300 hover:text-[#25D366] transition-all group">
-                  <FaWhatsapp className="w-6 h-6" />
-                  <span className="font-medium">WhatsApp (+57 311 400 5275)</span>
-                </a>
-                
-                <a href="mailto:arangojuanjoseweb@gmail.com" className="flex items-center gap-4 p-4 rounded-xl bg-neutral-900 border border-neutral-800 hover:border-teal-500/50 hover:bg-teal-500/10 text-neutral-300 hover:text-teal-400 transition-all">
-                  <FaEnvelope className="w-6 h-6" />
-                  <span className="font-medium">{t("Enviar Correo", "Send Email")}</span>
-                </a>
-
-                <a href="https://www.linkedin.com/in/juan-josé-arango-54924a36a" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 p-4 rounded-xl bg-neutral-900 border border-neutral-800 hover:border-[#0a66c2]/50 hover:bg-[#0a66c2]/10 text-neutral-300 hover:text-[#0a66c2] transition-all">
-                  <FaLinkedin className="w-6 h-6" />
-                  <span className="font-medium">LinkedIn Profile</span>
-                </a>
-                <a href="https://github.com/Arango134204" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 p-4 rounded-xl bg-neutral-900 border border-neutral-800 hover:border-white/50 hover:bg-white/10 text-neutral-300 hover:text-white transition-all">
-                  <FaGithub className="w-6 h-6" />
-                  <span className="font-medium">GitHub Projects</span>
-                </a>
-              </div>
+              <ul className="mt-8 divide-y divide-line border-y border-line">
+                {channels.map((channel) => (
+                  <li key={channel.label}>
+                    <a
+                      href={channel.href}
+                      target={channel.href.startsWith("http") ? "_blank" : undefined}
+                      rel="noopener noreferrer"
+                      className="group flex items-center justify-between gap-4 py-4"
+                    >
+                      <span className="font-mono text-xs uppercase tracking-widest text-muted">{channel.label}</span>
+                      <span className="flex items-center gap-2 truncate text-bone transition-colors group-hover:text-signal">
+                        {channel.detail}
+                        <ArrowUpRight className="h-4 w-4 shrink-0 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                      </span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
             </motion.div>
           </div>
         )}

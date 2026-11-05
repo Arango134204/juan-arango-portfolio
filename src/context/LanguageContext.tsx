@@ -22,6 +22,10 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
     if (savedLang) setLang(savedLang);
   }, []);
 
+  useEffect(() => {
+    document.documentElement.lang = lang.toLowerCase();
+  }, [lang]);
+
   const handleSetLang = (newLang: Language) => {
     setLang(newLang);
     localStorage.setItem("lang", newLang);
