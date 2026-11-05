@@ -2,7 +2,7 @@
 
 import { motion } from "motion/react";
 import { ArrowUpRight } from "lucide-react";
-import SigbaLoop from "@/components/SigbaLoop";
+import MarkLoop from "@/components/MarkLoop";
 import { useLanguage } from "@/context/LanguageContext";
 
 const reveal = {
@@ -43,12 +43,12 @@ export default function Now() {
             </h3>
             <p className="mt-4 max-w-lg leading-relaxed text-muted">
               {t(
-                "Cada letra es un path de curvas cúbicas con la misma estructura que la pieza final, así que puede transformarse sin saltos. En SIGBA las letras levantan una iglesia; en este sitio, J·A se convierte en un prompt de terminal.",
-                "Every letter is a cubic-curve path with the same structure as its final piece, so it can morph without jumps. In SIGBA the letters raise a church; on this site, J·A turns into a terminal prompt.",
+                "Estoy aprendiendo motion design con SVG: cada letra es un path de curvas cúbicas con la misma estructura que la pieza final, así que puede transformarse sin saltos. Así nació el logo de este sitio, donde J·A se convierte en un prompt de terminal.",
+                "I'm learning SVG motion design: every letter is a cubic-curve path with the same structure as its final piece, so it can morph without jumps. That's how this site's logo was made, with J·A turning into a terminal prompt.",
               )}
             </p>
             <div className="mt-10 flex flex-1 items-center justify-center rounded-xl border border-line bg-ink px-6 py-10 text-bone">
-              <SigbaLoop className="w-full max-w-md" />
+              <MarkLoop className="w-full max-w-sm" />
             </div>
           </motion.article>
 
@@ -81,12 +81,15 @@ export default function Now() {
           </motion.article>
 
           <motion.article {...reveal} className="flex flex-col bg-ink-2 p-8 md:p-10">
-            <p className="font-mono text-xs uppercase tracking-widest text-muted">Full-stack · Next.js</p>
-            <h3 className="mt-4 font-display text-3xl leading-tight">SIGBA</h3>
-            <p className="mt-4 leading-relaxed text-muted">
+            <p className="flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-muted">
+              <span className="h-1.5 w-1.5 animate-blink rounded-full bg-signal" />
+              {t("Proyecto en desarrollo actual", "Current project in development")}
+            </p>
+            <h3 className="mt-4 font-display text-2xl leading-tight">SIGBA</h3>
+            <p className="mt-3 text-sm leading-relaxed text-muted">
               {t(
-                "Gestión de beneficiarios para el Banco de Alimentos de Pereira y sus parroquias: sesión por parroquia, CRUD validado y un panel de accesibilidad (tema, tamaño de letra, animaciones).",
-                "Beneficiary management for the Pereira Food Bank and its parishes: per-parish sessions, validated CRUD, and an accessibility panel (theme, text size, motion).",
+                "Gestión de beneficiarios para el Banco de Alimentos de Pereira y sus parroquias, en Next.js.",
+                "Beneficiary management for the Pereira Food Bank and its parishes, built with Next.js.",
               )}
             </p>
             <a

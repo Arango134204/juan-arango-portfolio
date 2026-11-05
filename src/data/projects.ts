@@ -22,33 +22,6 @@ export type Project = {
 };
 
 export const projects: Project[] = [
-  {
-    id: "sigba",
-    title: "SIGBA",
-    description: {
-      es: "Sistema de gestión de beneficiarios para el Banco de Alimentos de Pereira y sus parroquias, con logo animado en SVG que se transforma en una iglesia.",
-      en: "Beneficiary management system for the Pereira Food Bank and its parishes, with an SVG logo that morphs into a church.",
-    },
-    tags: ["Next.js", "Motion", "shadcn/ui", "Accessibility"],
-    link: "https://github.com/Arango134204/interfaz-crud-beneficiarios",
-    category: "saas",
-    featured: true,
-    status: { es: "Nuevo · UAM", en: "New · UAM" },
-    caseStudy: {
-      challenge: {
-        es: "Las parroquias necesitaban registrar y mantener a sus beneficiarios de forma ordenada, con una interfaz usable por personas de todas las edades.",
-        en: "Parishes needed an orderly way to register and maintain their beneficiaries, with an interface usable by people of all ages.",
-      },
-      build: {
-        es: "Next.js con sesión por parroquia, CRUD con validación, activación/desactivación de beneficiarios y un panel de accesibilidad para tema, tamaño de letra y animaciones. La intro dibuja las letras SIGBA y las transforma en una iglesia con paths SVG.",
-        en: "Next.js with per-parish sessions, validated CRUD, beneficiary activation toggles and an accessibility panel for theme, text size and motion. The intro draws the SIGBA letters and morphs them into a church with SVG paths.",
-      },
-      role: {
-        es: "Diseño, frontend y motion design del logo e intro.",
-        en: "Design, frontend, and motion design for the logo and intro.",
-      },
-    },
-  },
   // —— Recent client websites (Cluster / freelance delivery) ——
   {
     id: "solis-painting",
@@ -299,6 +272,18 @@ export const projects: Project[] = [
         en: "Architecture, UX/UI, and mobile development.",
       },
     },
+  },
+  {
+    id: "sigba",
+    title: "SIGBA",
+    description: {
+      es: "Sistema de gestión de beneficiarios para el Banco de Alimentos de Pereira y sus parroquias: sesión por parroquia, CRUD validado y panel de accesibilidad.",
+      en: "Beneficiary management system for the Pereira Food Bank and its parishes: per-parish sessions, validated CRUD, and an accessibility panel.",
+    },
+    tags: ["Next.js", "shadcn/ui", "Accessibility"],
+    link: "https://github.com/Arango134204/interfaz-crud-beneficiarios",
+    category: "saas",
+    status: { es: "Proyecto en desarrollo actual", en: "Current project in development" },
   },
   {
     id: "barbersaas",

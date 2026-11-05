@@ -36,7 +36,7 @@ export default function Navbar() {
   ];
 
   const channels = [
-    { label: "WhatsApp", detail: "+57 311 400 5275", href: "https://wa.me/573114005275" },
+    { label: "WhatsApp", detail: "+57 300 603 0655", href: "https://wa.me/573006030655" },
     { label: "Email", detail: "arangojuanjoseweb@gmail.com", href: "mailto:arangojuanjoseweb@gmail.com" },
     { label: "LinkedIn", detail: "Juan José Arango", href: "https://www.linkedin.com/in/juan-josé-arango-54924a36a" },
     { label: "GitHub", detail: "@Arango134204", href: "https://github.com/Arango134204" },
