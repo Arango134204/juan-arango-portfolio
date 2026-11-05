@@ -4,6 +4,8 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { ArrowUpRight, X } from "lucide-react";
+import { track } from "@vercel/analytics";
+import ContactForm from "@/components/ContactForm";
 import Mark from "@/components/Mark";
 import { useLanguage } from "@/context/LanguageContext";
 
@@ -15,6 +17,10 @@ export default function Navbar() {
 
   useEffect(() => {
     document.body.style.overflow = isContactOpen ? "hidden" : "";
+  }, [isContactOpen]);
+
+  useEffect(() => {
+    if (isContactOpen) track("Contact Open");
   }, [isContactOpen]);
 
   useEffect(() => {
@@ -106,7 +112,7 @@ export default function Navbar() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 24 }}
               transition={{ type: "spring", stiffness: 260, damping: 28 }}
-              className="relative w-full max-w-lg rounded-2xl border border-line bg-ink-2 p-8"
+              className="relative max-h-[92svh] w-full max-w-xl overflow-y-auto rounded-2xl border border-line bg-ink-2 p-6 sm:p-8"
             >
               <button
                 type="button"
@@ -123,14 +129,22 @@ export default function Navbar() {
                 <em>{t("próximo proyecto.", "next project.")}</em>
               </h3>
 
-              <ul className="mt-8 divide-y divide-line border-y border-line">
+              <div className="mt-8">
+                <ContactForm />
+              </div>
+
+              <p className="mt-8 font-mono text-xs uppercase tracking-widest text-muted">
+                {t("O escríbeme directo", "Or reach me directly")}
+              </p>
+              <ul className="mt-3 divide-y divide-line border-y border-line">
                 {channels.map((channel) => (
                   <li key={channel.label}>
                     <a
                       href={channel.href}
                       target={channel.href.startsWith("http") ? "_blank" : undefined}
                       rel="noopener noreferrer"
-                      className="group flex items-center justify-between gap-4 py-4"
+                      onClick={() => track("Contact Channel", { channel: channel.label })}
+                      className="group flex items-center justify-between gap-4 py-3"
                     >
                       <span className="font-mono text-xs uppercase tracking-widest text-muted">{channel.label}</span>
                       <span className="flex items-center gap-2 truncate text-bone transition-colors group-hover:text-signal">

@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "motion/react";
+import { track } from "@vercel/analytics";
 import { ArrowDownRight } from "lucide-react";
 import IDCard from "@/components/IDCard";
 import { useIntroDone } from "@/components/Intro";
@@ -79,6 +80,7 @@ export default function Hero() {
             <Link
               href="/CV_JuanJoseArango_EN_2026.pdf"
               target="_blank"
+              onClick={() => track("CV Download")}
               className="font-mono text-sm uppercase tracking-widest text-bone underline decoration-line underline-offset-8 transition-colors hover:decoration-signal"
             >
               {t("Descargar CV", "Download CV")}
@@ -106,7 +108,7 @@ export default function Hero() {
         <div className="flex justify-center lg:justify-end">{ready && <IDCard />}</div>
       </div>
 
-      <img src="/bg/waves.svg" alt="" aria-hidden className="relative block h-24 w-full md:h-36" />
+      <div aria-hidden className="relative h-24 w-full bg-[url('/bg/waves.svg')] bg-size-[100%_100%] md:h-36" />
     </section>
   );
 }

@@ -20,7 +20,7 @@ export default function Footer() {
 
   return (
     <footer className="relative overflow-hidden border-t border-line">
-      <img src="/bg/waves.svg" alt="" aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-40 w-full opacity-60" />
+      <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-40 w-full bg-[url('/bg/waves.svg')] bg-size-[100%_100%] opacity-60" />
 
       <div className="relative mx-auto max-w-7xl px-6 pt-24 pb-10 md:pt-32">
         <p className="font-mono text-xs uppercase tracking-[0.25em] text-signal">05 — {t("Contacto", "Contact")}</p>
